@@ -20,13 +20,6 @@ export const auth = betterAuth({
     }),
     user: {
         additionalFields: {
-            preference: {
-                type: "string",
-                required: false,
-                input: false,
-                fieldName: "preference",
-                unique: false,
-            },
             metadata: {
                 type: "string",
                 required: false,
