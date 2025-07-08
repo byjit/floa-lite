@@ -1,0 +1,28 @@
+---
+alwaysApply: true
+---
+Mchat - The all-in-one AI Agent Chat Platform for all screens. 
+
+NOTE: all the information below are just for context on the product.
+
+## **Features:**
+- Switch between different AI providers (OpenAI, Anthropic, Perplexity, Gemini, etc.)
+- Upload files and get answers from them using RAG (Retrieval-Augmented Generation)
+- MCP - Connect any app/tool to your AI using MCP (Model Context Protocol)
+- Search the web using Perplexity
+- Record your thoughts and get answers or get tasks done using ElevenLabs
+- Create multiple AI personans (AI agents) and switch with ease between them
+
+## **Tech Stack:**
+
+- Frontend & backend: Next Js
+- Database: Turso Libsql sqlite with Drizzle ORM
+- Uploadthing for file upload
+- Authentication - Google oauth implemented with better-auth
+- shadcn UI, tailwindcss, for UI
+- tRPC for API
+
+## Product context
+- Meant for all screens, small and big
+- Meant for individuals - professionals, devs, students alike
+- Meant to replace people's perplexity, chatgpt, claude subscription.
