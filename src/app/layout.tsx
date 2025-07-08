@@ -1,6 +1,7 @@
 import '@/styles/globals.css';
 import { type Metadata } from 'next';
 
+import { HydrateClient } from '@/trpc/server';
 import { TRPCReactProvider } from '@/trpc/react';
 import { ThemeProvider } from '@/components/theme-providers';
 import { Toaster } from "@/components/ui/sonner"
@@ -96,7 +97,11 @@ export default function RootLayout({
           defaultTheme="light"
           disableTransitionOnChange
         >
-          <TRPCReactProvider>{children}</TRPCReactProvider>
+          <TRPCReactProvider>
+            <HydrateClient>
+              {children}
+            </HydrateClient>
+          </TRPCReactProvider>
         </ThemeProvider>
         <Toaster />
         {/* <Analytics /> */}
