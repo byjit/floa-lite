@@ -19,7 +19,7 @@ export function LoginButton({
 
   return (
     <Button
-      onClick={() => signInGoogle({ callbackURL: redirectUrl ?? env.NEXT_PUBLIC_APP_URL + '/dashboard' })}
+      onClick={() => signInGoogle({ callbackURL: redirectUrl ?? env.NEXT_PUBLIC_APP_URL + '/agents' })}
       {...props}
     >
       <span className="btn-label">{text}</span>

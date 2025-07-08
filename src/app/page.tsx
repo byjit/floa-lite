@@ -20,9 +20,9 @@ export default async function Home() {
             <div className="relative mx-auto max-w-5xl px-6 py-28 lg:py-24">
               <div className="relative z-10 mx-auto max-w-2xl text-center">
                 <h1 className="text-balance text-4xl font-semibold md:text-5xl lg:text-6xl">AI agents for you</h1>
-                <p className="mx-auto my-8 max-w-2xl text-slate-300">Replace your perplexity, openai and claude subscription with a single platform that can connect your apps and answer or perform tasks across them.</p>
+                <p className="mx-auto my-8 max-w-2xl font-light text-slate-300 text-xl">Replace your perplexity, openai and claude subscription with a single platform that can connect your apps and answer or perform tasks across them.</p>
 
-                <LoginButton text="Access yours" showArrow />
+                <LoginButton text="Access yours" className='outline outline-slate-400 outline-offset-2' showArrow />
               </div>
             </div>
 
