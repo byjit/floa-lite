@@ -63,3 +63,25 @@ yarn-error.log*
 
 # idea files
 .idea
+
+docs/
+.cursor/
+.next/
+.vercel/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+src/components/ui/
+.gitignore
+.eslintrc.*
+.prettierrc
+.prettierignore
+.prettierignore
+CONTRIBUTING.md
+LICENSE
+README.md
+postcss.config.js
+tsconfig.json
+tailwind.config.ts

@@ -1,10 +1,28 @@
 {
   "name": "mchat",
   "version": "0.1.0",
-  "private": true,
+  "description": "The all-in-one AI Agent Chat Platform for all screens. Switch between AI providers, upload files with RAG, connect tools via MCP, and create AI personas.",
+  "keywords": [
+    "ai chat",
+    "ai agent",
+    "all-in-one ai platform",
+    "ai for individuals",
+    "nextjs",
+    "typescript"
+  ],
+  "license": "GPL-3.0",
   "author": {
-    "name": "Prasanjit Dutta"
+    "name": "Prasanjit Dutta",
+    "email": "prasanjitdutta45@gmail.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/byjit/mchat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/byjit/mchat/issues"
+  },
+  "homepage": "https://github.com/byjit/mchat#readme",
   "type": "module",
   "scripts": {
     "prebuild": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",

@@ -1,6 +1,6 @@
-# Contributing to SupaManager
+# Contributing to Mchat
 
-Thank you for considering contributing to SupaManager! We welcome contributions from everyone. Please follow the guidelines below to ensure a smooth contribution process.
+Thank you for considering contributing to Mchat! We welcome contributions from everyone. Please follow the guidelines below to ensure a smooth contribution process.
 
 ## How to Report Issues
 

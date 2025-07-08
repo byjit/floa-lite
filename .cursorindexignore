@@ -1,6 +1,8 @@
-# clineignore
+.cursorignore
 scripts/
 .vscode/
+.clinerules
+.clineignore
 .gitignore
 .clineignore
 __pycache__/
