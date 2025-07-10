@@ -30,7 +30,6 @@ export const TooltipIconButton = forwardRef<
           ref={ref}
         >
           {children}
-          <span className="aui-sr-only">{tooltip}</span>
         </Button>
       </TooltipTrigger>
       <TooltipContent side={side}>{tooltip}</TooltipContent>

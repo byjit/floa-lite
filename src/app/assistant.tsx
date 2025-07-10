@@ -8,6 +8,7 @@ import {
   SimpleImageAttachmentAdapter,
   SimpleTextAttachmentAdapter,
 } from "@assistant-ui/react";
+import { db } from "@/server/db";
 
 export const Assistant = () => {
   const runtime = useChatRuntime({
@@ -22,7 +23,9 @@ export const Assistant = () => {
 
   return (
     <AssistantRuntimeProvider runtime={runtime}>
-      <Thread />
+      <div className="w-full flex gap-2">
+        <Thread />
+      </div>
     </AssistantRuntimeProvider>
   );
 };
