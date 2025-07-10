@@ -1,5 +1,3 @@
-"use client";
-import { validateSession } from "auth"
 import { Assistant } from "@/app/assistant";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
