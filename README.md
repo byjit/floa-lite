@@ -1,4 +1,4 @@
-# Mchat 🤖
+# Floa lite 🤖
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -7,7 +7,7 @@
 
 **The all-in-one AI Agent Chat Platform for all screens.**
 
-Mchat is designed to replace your Perplexity, ChatGPT, and Claude subscriptions with a unified, powerful, and extensible AI chat platform that works seamlessly across all devices.
+Floa lite is designed to replace your Perplexity, ChatGPT, and Claude subscriptions with a unified, powerful, and extensible AI chat platform that works seamlessly across all devices.
 
 ## ✨ Features
 

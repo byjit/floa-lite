@@ -53,12 +53,12 @@ export const auth = betterAuth({
             create: {
                 after: async (user, context) => {
                     if (env.NODE_ENV === 'production') {
-                        await sendAdminSlackNotification(`Mchat | New user signed up: ${user.email} at ${user.createdAt}`);
+                        await sendAdminSlackNotification(`Floa lite | New user signed up: ${user.email} at ${user.createdAt}`);
 
                         await resend.emails.send({
                             from: SYSTEM_ADMIN_EMAIL,
                             to: user.email,
-                            subject: 'Welcome to Mchat!',
+                            subject: 'Welcome to Floa lite!',
                             react: WelcomeEmail({ name: user.name! || 'there' }),
                         });
                     }

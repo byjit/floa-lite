@@ -18,10 +18,10 @@ export const WelcomeEmail = ({ name }: WelcomeEmailProps) => (
 
                     <Section className="mb-6">
                         <Heading className="text-2xl font-bold text-gray-900 mb-4">
-                            Welcome to Mchat, {name}!
+                            Welcome to Floa lite, {name}!
                         </Heading>
                         <Text className="text-gray-700 mb-4">
-                            I&apos;m Jit, the creator of Mchat. We&apos;re thrilled to have you join Mchat. Mchat is here to help you stay updated with all your industry insights.
+                            I&apos;m Jit, the creator of Floa lite. We&apos;re thrilled to have you join Floa lite. Floa lite is here to help you stay updated with all your industry insights.
                         </Text>
                         <Text className="text-gray-700 mb-6">
                             To get started, sign up and save your preferences to start receiving email updates. If you have any questions or need assistance, please don&apos;t hesitate to reach out.

@@ -20,9 +20,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Mchat - The all-in-one AI Agent Chat Platform',
+  title: 'Floa lite - The all-in-one AI Agent Chat Platform',
   description:
-    'Mchat is the all-in-one AI Agent Chat Platform for all screens. Switch between AI providers, upload files for RAG, connect any app with MCP, search the web, record thoughts, and create multiple AI personas. For professionals, devs, and students.',
+    'Floa lite is the all-in-one AI Agent Chat Platform for all screens. Switch between AI providers, upload files for RAG, connect any app with MCP, search the web, record thoughts, and create multiple AI personas. For professionals, devs, and students.',
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
   assets: ['/favicon.ico'],
   authors: [{ name: 'Jit', url: 'https://directory.byjit.com' }],
@@ -44,10 +44,10 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Mchat - The all-in-one AI Agent Chat Platform',
+    title: 'Floa lite - The all-in-one AI Agent Chat Platform',
     description: 'Switch between AI providers, upload files for RAG, connect any app with MCP, search the web, record thoughts, and create multiple AI personas. For professionals, devs, and students.',
     url: `${env.NEXT_PUBLIC_APP_URL}`,
-    siteName: 'Mchat',
+    siteName: 'Floa lite',
     images: [
       {
         url: `${env.NEXT_PUBLIC_APP_URL}/og-image.png`,
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Mchat - The all-in-one AI Agent Chat Platform',
+    title: 'Floa lite - The all-in-one AI Agent Chat Platform',
     description: 'Switch between AI providers, upload files for RAG, connect any app with MCP, search the web, record thoughts, and create multiple AI personas. For professionals, devs, and students.',
     creator: '@jit_infinity',
     images: [`${env.NEXT_PUBLIC_APP_URL}/og-image.png`],
@@ -89,8 +89,8 @@ export default function RootLayout({
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            "name": "Mchat",
-            "description": "Mchat is the all-in-one AI Agent Chat Platform for all screens. Switch between AI providers, upload files for RAG, connect any app with MCP, search the web, record thoughts, and create multiple AI personas. For professionals, devs, and students.",
+            "name": "Floa lite",
+            "description": "Floa lite is the all-in-one AI Agent Chat Platform for all screens. Switch between AI providers, upload files for RAG, connect any app with MCP, search the web, record thoughts, and create multiple AI personas. For professionals, devs, and students.",
             "url": env.NEXT_PUBLIC_APP_URL,
             "applicationCategory": "ProductivityApplication",
             "operatingSystem": "Web",
