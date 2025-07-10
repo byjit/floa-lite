@@ -1,5 +1,5 @@
 {
-  "name": "mchat",
+  "name": "floa-lite",
   "version": "0.1.0",
   "description": "The all-in-one AI Agent Chat Platform for all screens. Switch between AI providers, upload files with RAG, connect tools via MCP, and create AI personas.",
   "keywords": [
@@ -17,12 +17,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/byjit/mchat.git"
+    "url": "https://github.com/byjit/floa-lite.git"
   },
   "bugs": {
-    "url": "https://github.com/byjit/mchat/issues"
+    "url": "https://github.com/byjit/floa-lite/issues"
   },
-  "homepage": "https://github.com/byjit/mchat#readme",
+  "homepage": "https://github.com/byjit/floa-lite#readme",
   "type": "module",
   "scripts": {
     "prebuild": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
@@ -43,6 +43,10 @@
     "email-preview": "email dev --port 3002 --dir src/lib/services/email-templates/"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^1.3.23",
+    "@assistant-ui/react": "^0.10.24",
+    "@assistant-ui/react-ai-sdk": "^0.10.14",
+    "@assistant-ui/react-markdown": "^0.10.5",
     "@auth/drizzle-adapter": "^1.7.4",
     "@google/generative-ai": "^0.8.0",
     "@hookform/resolvers": "^3.10.0",
@@ -61,11 +65,11 @@
     "@radix-ui/react-scroll-area": "^1.2.9",
     "@radix-ui/react-select": "^2.2.2",
     "@radix-ui/react-separator": "^1.1.1",
-    "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-switch": "^1.1.3",
     "@radix-ui/react-tabs": "^1.1.9",
     "@radix-ui/react-toast": "^1.2.4",
-    "@radix-ui/react-tooltip": "^1.1.6",
+    "@radix-ui/react-tooltip": "^1.2.7",
     "@react-email/components": "^0.0.41",
     "@react-email/tailwind": "^1.0.5",
     "@t3-oss/env-nextjs": "^0.10.1",
@@ -78,6 +82,7 @@
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.8.1",
     "@vercel/analytics": "^1.5.0",
+    "ai": "^4.3.17",
     "axios": "^1.10.0",
     "better-auth": "^1.2.8",
     "class-variance-authority": "^0.7.1",

@@ -7,6 +7,17 @@ import { ThemeProvider } from '@/components/theme-providers';
 import { Toaster } from "@/components/ui/sonner"
 import { env } from '@/env';
 import Script from 'next/script';
+import { Geist, Geist_Mono } from "next/font/google";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: 'Mchat - The all-in-one AI Agent Chat Platform',
@@ -91,7 +102,7 @@ export default function RootLayout({
           })}
         </Script>
       </head>
-      <body className="min-h-screen" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen`} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

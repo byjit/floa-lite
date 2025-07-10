@@ -5,11 +5,6 @@ export default {
   darkMode: ['class'],
   content: ['./src/**/*.tsx'],
   theme: {
-    fontFamily: {
-      sans: ['Inter', ...fontFamily.sans],
-      heading: ['Poppins', 'Inter', ...fontFamily.sans],
-      mono: ['Fira Mono', ...fontFamily.mono],
-    },
     extend: {
       borderRadius: {
         lg: 'var(--radius)',

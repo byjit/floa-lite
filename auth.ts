@@ -78,7 +78,7 @@ export const getSession = cache(async () => {
 
 export const validateSession = cache(async () => {
     const session = await getSession();
-    if (!session) redirect('/');
+    if (!session) redirect('/login');
     return session as Session;
 });
 

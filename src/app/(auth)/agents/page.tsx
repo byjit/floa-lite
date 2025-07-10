@@ -1,12 +1,14 @@
+"use client";
 import { validateSession } from "auth"
-
+import { Assistant } from "@/app/assistant";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export default async function AgentsPage() {
-    const session = await validateSession();
-
     return (
-        <div className="max-w-3xl mx-auto px-4 py-12">
-            <p>Agents</p>
+        <div className="max-w-full mx-auto px-4 py-12">
+            <TooltipProvider>
+                <Assistant />
+            </TooltipProvider>
         </div>
     )
 }
