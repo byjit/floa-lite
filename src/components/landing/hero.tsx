@@ -1,5 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "../ui/separator";
+import { LoginButton } from "../login-form";
+import { FaGithub } from "react-icons/fa";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { buttonVariants } from "../ui/button";
 
 export const Hero = () => (
   <div className="w-full py-20">
@@ -19,11 +24,10 @@ export const Hero = () => (
             </p>
           </div>
           <div className="flex items-center gap-4">
-            {/* <Link href="https://github.com/byjit/floa-lite" className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}>
+            <Link href="https://github.com/byjit/floa-lite" className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}>
               Github <FaGithub className="h-6 w-6" />
             </Link>
-            <LoginButton text="Access yours" showArrow />     */}
-            <iframe data-tally-src="https://tally.so/embed/wAROyz?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="174" title="Dreamreel Waitlist form"></iframe>
+            <LoginButton text="Access yours" showArrow />    
           </div>
         </div>
         <div className="grid grid-cols-2 gap-8">
