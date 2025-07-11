@@ -3,10 +3,7 @@ import { ChatOpenAI } from "@langchain/openai";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import { tool } from "@langchain/core/tools";
 import { z } from "zod";
-import { client } from "@/lib/services/qdrant";
-import { Document } from "@langchain/core/documents";
 import { OpenAIEmbeddings } from "@langchain/openai";
-import { trimMessages } from "@langchain/core/messages";
 import { HumanMessage, AIMessage, BaseMessage } from "@langchain/core/messages";
 
 // Initialize OpenAI model and embeddings

@@ -101,6 +101,7 @@ export default function RootLayout({
             }
           })}
         </Script>
+        <Script id="tally-so" async src="https://tally.so/widgets/embed.js"></Script>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen`} suppressHydrationWarning>
         <ThemeProvider
