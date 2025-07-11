@@ -5,7 +5,7 @@ import { createId } from "@paralleldrive/cuid2";
 import { user } from "./user";
 import { project } from "./project";
 
-export const toolType = ['api', 'mcp', 'plugin', 'custom'] as const;
+export const toolType = ['integration', 'mcp'] as const;
 export const toolTypeSchema = z.enum(toolType);
 
 /**

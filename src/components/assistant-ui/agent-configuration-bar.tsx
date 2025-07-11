@@ -9,11 +9,10 @@ import { SearchableSelect, Option } from "@/components/searchable-select"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
 import { useEffect, useState } from "react"
-import { useAssistantRuntime, useRuntimeState, tool } from "@assistant-ui/react";
+import { useComposerRuntime, useRuntimeState, tool } from "@assistant-ui/react";
 
 export const AgentConfigurationBar = () => {
-    const assistantRuntime = useAssistantRuntime();
-    const [intelligence, setIntelligence] = useState("balanced")
+    const composerRuntime = useComposerRuntime();
     const [creativity, setCreativity] = useState("balanced")
     const [humanised, setHumanised] = useState("balanced")
     const [project, setProject] = useState("project1")
@@ -31,19 +30,15 @@ export const AgentConfigurationBar = () => {
     ]
 
     useEffect(() => {
-        console.log(assistantRuntime.registerModelContextProvider({
-            getModelContext() {
-                return {
-                    callSettings: {
-                        temperature: 1
-                    },
-                    config: {
-                        modelName: 'gpt-4o-mini',
-                    },
-                }
-            },
-        }))
-    }, [assistantRuntime])
+        if (!composerRuntime) return;
+        composerRuntime.setRunConfig({
+            custom: {
+                creativity,
+                humanised,
+                project,
+            }
+        })
+    }, [composerRuntime, creativity, humanised, project])
 
     return (
         <div className="flex items-center justify-between w-full px-4 max-w-[42rem] mx-auto">
