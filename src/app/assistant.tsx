@@ -7,16 +7,20 @@ import {
   CompositeAttachmentAdapter,
   SimpleImageAttachmentAdapter,
   SimpleTextAttachmentAdapter,
+  WebSpeechSynthesisAdapter,
 } from "@assistant-ui/react";
+import { PDFAttachmentAdapter } from "@/components/assistant-ui/pdf-attachment-adapter";
 import { db } from "@/server/db";
 
 export const Assistant = () => {
   const runtime = useChatRuntime({
     api: "/api/chat",
     adapters: {
+      speech: new WebSpeechSynthesisAdapter(),
       attachments: new CompositeAttachmentAdapter([
         new SimpleImageAttachmentAdapter(),
         new SimpleTextAttachmentAdapter(),
+        new PDFAttachmentAdapter(),
       ]),
     },
   });

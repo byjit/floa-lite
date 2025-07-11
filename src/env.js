@@ -21,7 +21,9 @@ export const env = createEnv({
     PERPLEXITY_API_KEY: z.string(),
     RESEND_API_KEY: z.string(),
     ELEVENLABS_API_KEY: z.string(),
-    ELEVENLABS_VOICE_ID: z.string()
+    ELEVENLABS_VOICE_ID: z.string(),
+    QDRANT_URL: z.string(),
+    QDRANT_API_KEY: z.string(),
   },
 
   /**
@@ -52,6 +54,8 @@ export const env = createEnv({
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     ELEVENLABS_API_KEY: process.env.ELEVENLABS_API_KEY,
     ELEVENLABS_VOICE_ID: process.env.ELEVENLABS_VOICE_ID,
+    QDRANT_URL: process.env.QDRANT_URL,
+    QDRANT_API_KEY: process.env.QDRANT_API_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

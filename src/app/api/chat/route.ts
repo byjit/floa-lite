@@ -2,7 +2,7 @@ import { LangChainAdapter } from "ai";
 import { Messages } from "@langchain/langgraph";
 import { AIMessageChunk, isAIMessageChunk } from "@langchain/core/messages";
 import { toReadableStream } from "@/lib/utils";
-import { workflow } from "@/workflows/assistant";
+import { masterWorkflow } from "@/workflows/master-workflow";
 
 export const runtime = "edge";
 export const maxDuration = 30;
@@ -10,7 +10,7 @@ export const maxDuration = 30;
 export async function POST(req: Request) {
   const { messages }: { messages: Messages } = await req.json();
 
-  const streamIterable = await workflow.stream({ messages }, { streamMode: "messages" });
+  const streamIterable = await masterWorkflow.stream({ messages }, { streamMode: "messages" });
 
   const stream = toReadableStream(streamIterable, {
     filter: ([msg]) => isAIMessageChunk(msg as AIMessageChunk),
