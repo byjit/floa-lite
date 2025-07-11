@@ -4,7 +4,6 @@ import { SignOutBtn } from "./SignOutBtn";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Session } from "auth";
-import { Button, ButtonProps, buttonVariants } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 import { getInitials } from "@/lib/utils";

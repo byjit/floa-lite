@@ -4,7 +4,6 @@ import { z } from "zod";
 import { createId } from "@paralleldrive/cuid2";
 import { user } from "./user";
 import { project } from "./project";
-import { aiModel } from "./ai-model"; // Assuming ai-model schema will be created
 
 /**
  * Represents a single conversation with an AI model.

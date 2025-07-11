@@ -1,6 +1,6 @@
 import { Logo } from "@/components/block/Logo";
 import { LoginButton } from "@/components/login-form";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { getSession } from "auth";
 import { redirect } from "next/navigation";
 

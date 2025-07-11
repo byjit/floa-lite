@@ -2,7 +2,6 @@
 import { AssistantRuntimeProvider } from "@assistant-ui/react";
 import { useChatRuntime } from "@assistant-ui/react-ai-sdk";
 import { Thread } from "@/components/assistant-ui/thread";
-import { ThreadList } from "@/components/assistant-ui/thread-list";
 import {
   CompositeAttachmentAdapter,
   SimpleImageAttachmentAdapter,
@@ -10,7 +9,6 @@ import {
   WebSpeechSynthesisAdapter,
 } from "@assistant-ui/react";
 import { PDFAttachmentAdapter } from "@/components/assistant-ui/pdf-attachment-adapter";
-import { db } from "@/server/db";
 
 export const Assistant = () => {
   const runtime = useChatRuntime({

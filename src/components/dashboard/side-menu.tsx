@@ -1,17 +1,13 @@
 'use client';
 import { Session } from "auth";
-import { Button, buttonVariants } from "@/components/ui/button"
 import { 
     Mail, 
     BarChart3, 
     Settings, 
     Box, 
-    Cloud, 
-    Bug, 
     TrendingUp, 
     CreditCard, 
-    FileText, 
-    MessageCircle,
+    FileText,
     Edit
 } from "lucide-react";
 import Link from "next/link";
