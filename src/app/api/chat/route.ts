@@ -2,7 +2,7 @@ import { LangChainAdapter } from "ai";
 import { Messages } from "@langchain/langgraph";
 import { AIMessageChunk, isAIMessageChunk } from "@langchain/core/messages";
 import { toReadableStream } from "@/lib/utils";
-import { masterWorkflow } from "@/workflows/master-workflow";
+import { masterWorkflow } from "@/lib/workflows/master-workflow";
 
 export const runtime = "edge";
 export const maxDuration = 30;
