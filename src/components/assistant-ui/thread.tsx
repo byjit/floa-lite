@@ -13,9 +13,13 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   CopyIcon,
+  MailIcon,
   PencilIcon,
   RefreshCwIcon,
   SendHorizontalIcon,
+  SearchIcon,
+  CalendarIcon,
+  ArrowUp,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -37,7 +41,6 @@ export const Thread: FC = () => {
       }}
     >
       <ThreadPrimitive.Viewport className="flex h-full flex-col items-center overflow-y-scroll scroll-smooth bg-inherit px-4 pt-8">
-        <ThreadWelcome />
 
         <ThreadPrimitive.Messages
           components={{
@@ -55,6 +58,7 @@ export const Thread: FC = () => {
           <ThreadScrollToBottom />
           <Composer />
         </div>
+        <ThreadWelcome />
       </ThreadPrimitive.Viewport>
     </ThreadPrimitive.Root>
   );
@@ -77,57 +81,61 @@ const ThreadScrollToBottom: FC = () => {
 const ThreadWelcome: FC = () => {
   return (
     <ThreadPrimitive.Empty>
-      <div className="flex w-full max-w-[var(--thread-max-width)] flex-grow flex-col">
-        <div className="flex w-full flex-grow flex-col items-center justify-center">
-          <p className="mt-4 font-medium">
-            How can I help you today?
-          </p>
-        </div>
-        <ThreadWelcomeSuggestions />
-      </div>
+      <ThreadWelcomeSuggestions />
     </ThreadPrimitive.Empty>
   );
 };
 
 const ThreadWelcomeSuggestions: FC = () => {
   return (
-    <div className="mt-3 flex w-full items-stretch justify-center gap-4">
-      <ThreadPrimitive.Suggestion
-        className="hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-3 transition-colors ease-in"
-        prompt="What is the weather in Tokyo?"
-        method="replace"
-        autoSend
-      >
-        <span className="line-clamp-2 text-ellipsis text-sm font-semibold">
-          What is the weather in Tokyo?
-        </span>
-      </ThreadPrimitive.Suggestion>
-      <ThreadPrimitive.Suggestion
-        className="hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-3 transition-colors ease-in"
-        prompt="What is assistant-ui?"
-        method="replace"
-        autoSend
-      >
-        <span className="line-clamp-2 text-ellipsis text-sm font-semibold">
-          What is assistant-ui?
-        </span>
-      </ThreadPrimitive.Suggestion>
+    <div className="mt-14 flex flex-col w-full items-center justify-center gap-4">
+      {[
+        {
+          prompt: "Write me an email",
+          icon: <MailIcon className="w-4 h-4" />,
+          label: "Write me an email",
+        },
+        {
+          prompt: "What's on my calendar today? ",
+          icon: <CalendarIcon className="w-4 h-4" />,
+          label: "What's on my calendar today",
+        },
+        {
+          prompt: "Deep research the topic: ",
+          icon: <SearchIcon className="w-4 h-4" />,
+          label: "Deep research a topic",
+        },
+      ].map((suggestion, idx) => (
+        <ThreadPrimitive.Suggestion
+          key={suggestion.prompt}
+          className="flex max-w-sm grow basis-0 gap-2 text-sm text-neutral-400 hover:text-foreground items-center justify-center rounded-full bg-secondary border py-2 px-4 transition-colors ease-in"
+          prompt={suggestion.prompt}
+          method="replace"
+          autoSend
+        >
+          {suggestion.icon}{suggestion.label}
+        </ThreadPrimitive.Suggestion>
+      ))}
     </div>
   );
 };
 
 const Composer: FC = () => {
   return (
-    <ComposerPrimitive.Root className="focus-within:border-ring/20 flex w-full flex-wrap items-end rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in">
-      <ComposerAttachments />
-      <ComposerAddAttachment />
+    <ComposerPrimitive.Root className="focus-within:border-ring/20 flex flex-col w-full rounded-xl border bg-inherit px-2.5 shadow-sm transition-colors ease-in">
       <ComposerPrimitive.Input
-        rows={1}
+        rows={6}
         autoFocus
-        placeholder="Write a message..."
-        className="placeholder:text-muted-foreground max-h-40 flex-grow resize-none border-none bg-transparent px-2 py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed"
+        placeholder="Ask questions or get your work done"
+        className="placeholder:text-muted-foreground h-40 flex-grow resize-none border-none bg-transparent px-2 py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed"
       />
-      <ComposerAction />
+      <div className="flex justify-between w-full">
+        <div>
+          <ComposerAttachments />
+          <ComposerAddAttachment />
+        </div>
+        <ComposerAction />
+      </div>
     </ComposerPrimitive.Root>
   );
 };
@@ -140,9 +148,9 @@ const ComposerAction: FC = () => {
           <TooltipIconButton
             tooltip="Send"
             variant="default"
-            className="my-2.5 size-8 p-2 transition-opacity ease-in"
+            className="my-2.5 size-8 p-2 rounded-full transition-opacity ease-in"
           >
-            <SendHorizontalIcon />
+            <ArrowUp />
           </TooltipIconButton>
         </ComposerPrimitive.Send>
       </ThreadPrimitive.If>
@@ -151,7 +159,7 @@ const ComposerAction: FC = () => {
           <TooltipIconButton
             tooltip="Cancel"
             variant="default"
-            className="my-2.5 size-8 p-2 transition-opacity ease-in"
+            className="my-2.5 size-8 p-2 rounded-full transition-opacity ease-in"
           >
             <CircleStopIcon />
           </TooltipIconButton>

@@ -25,9 +25,7 @@ export const Assistant = () => {
 
   return (
     <AssistantRuntimeProvider runtime={runtime}>
-      <div className="w-full flex gap-2">
-        <Thread />
-      </div>
+      <Thread />
     </AssistantRuntimeProvider>
   );
 };
