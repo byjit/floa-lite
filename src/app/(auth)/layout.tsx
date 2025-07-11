@@ -11,7 +11,7 @@ export default async function AppLayout({
   return (
     <div className='flex flex-col min-h-screen'>
       <Navbar session={session} />
-      <main className='w-full py-16'>
+      <main className='w-full py-24'>
       {children}
       </main>
     </div>

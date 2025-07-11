@@ -20,6 +20,7 @@ import {
   SearchIcon,
   CalendarIcon,
   ArrowUp,
+  CloudIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -31,11 +32,12 @@ import {
   ComposerAddAttachment,
   UserMessageAttachments,
 } from "@/components/assistant-ui/attachment";
+import { AiModelSelector } from "./model-selector";
 
 export const Thread: FC = () => {
   return (
     <ThreadPrimitive.Root
-      className="bg-background box-border flex h-full flex-col overflow-hidden"
+      className="bg-background box-border flex flex-col overflow-hidden"
       style={{
         ["--thread-max-width" as string]: "42rem",
       }}
@@ -54,11 +56,11 @@ export const Thread: FC = () => {
           <div className="min-h-8 flex-grow" />
         </ThreadPrimitive.If>
 
-        <div className="sticky bottom-0 mt-3 flex w-full max-w-[var(--thread-max-width)] flex-col items-center justify-end rounded-t-lg bg-inherit pb-4">
+        <div className="sticky bottom-0 mt-3 flex w-full max-w-[var(--thread-max-width)] flex-col items-center justify-end rounded-t-lg bg-inherit pb-3 z-10 shadow-2xl shadow-black/30 backdrop-blur-sm">
           <ThreadScrollToBottom />
           <Composer />
         </div>
-        <ThreadWelcome />
+        {/* <ThreadWelcome /> */}
       </ThreadPrimitive.Viewport>
     </ThreadPrimitive.Root>
   );
@@ -122,19 +124,22 @@ const ThreadWelcomeSuggestions: FC = () => {
 
 const Composer: FC = () => {
   return (
-    <ComposerPrimitive.Root className="focus-within:border-ring/20 flex flex-col w-full rounded-xl border bg-inherit px-2.5 shadow-sm transition-colors ease-in">
+    <ComposerPrimitive.Root className="focus-within:border-ring/20 flex flex-col w-full rounded-xl border bg-neutral-900 px-2.5 shadow-sm transition-colors ease-in">
+      <ComposerAttachments />
       <ComposerPrimitive.Input
-        rows={6}
+        rows={3}
         autoFocus
         placeholder="Ask questions or get your work done"
-        className="placeholder:text-muted-foreground h-40 flex-grow resize-none border-none bg-transparent px-2 py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed"
+        className="placeholder:text-neutral-600 h-40 flex-grow resize-none border-none bg-transparent px-2 py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed"
       />
-      <div className="flex justify-between w-full">
+      <div className="flex justify-between w-full items-center">
         <div>
-          <ComposerAttachments />
-          <ComposerAddAttachment />
+          <AiModelSelector />
         </div>
+        <div className="flex items-center gap-2">
+          <ComposerAddAttachment />
         <ComposerAction />
+        </div>
       </div>
     </ComposerPrimitive.Root>
   );
@@ -192,8 +197,8 @@ const UserActionBar: FC = () => {
       className="flex flex-col items-end col-start-1 row-start-2 mr-3 mt-2.5"
     >
       <ActionBarPrimitive.Edit asChild>
-        <TooltipIconButton tooltip="Edit">
-          <PencilIcon />
+        <TooltipIconButton size={'icon'} tooltip="Edit">
+          <PencilIcon className="w-2 h-2" />
         </TooltipIconButton>
       </ActionBarPrimitive.Edit>
     </ActionBarPrimitive.Root>
@@ -248,21 +253,21 @@ const AssistantActionBar: FC = () => {
       hideWhenRunning
       autohide="not-last"
       autohideFloat="single-branch"
-      className="text-muted-foreground flex gap-1 col-start-3 row-start-2 -ml-1 data-[floating]:bg-background data-[floating]:absolute data-[floating]:rounded-md data-[floating]:border data-[floating]:p-1 data-[floating]:shadow-sm"
+      className="text-muted-foreground flex gap-1 col-start-3 row-start-2 -ml-1 data-[floating]:bg-background data-[floating]:absolute data-[floating]:rounded-md data-[floating]:p-1 data-[floating]:shadow-sm"
     >
       <ActionBarPrimitive.Copy asChild>
         <TooltipIconButton tooltip="Copy">
           <MessagePrimitive.If copied>
-            <CheckIcon />
+            <CheckIcon className="w-2 h-2" />
           </MessagePrimitive.If>
           <MessagePrimitive.If copied={false}>
-            <CopyIcon />
+            <CopyIcon className="w-2 h-2" />
           </MessagePrimitive.If>
         </TooltipIconButton>
       </ActionBarPrimitive.Copy>
       <ActionBarPrimitive.Reload asChild>
         <TooltipIconButton tooltip="Refresh">
-          <RefreshCwIcon />
+          <RefreshCwIcon className="w-2 h-2" />
         </TooltipIconButton>
       </ActionBarPrimitive.Reload>
     </ActionBarPrimitive.Root>

@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Check, ChevronsUpDown } from "lucide-react"
+import { Check, ChevronDown, ChevronsUpDown } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -56,26 +56,26 @@ export function SearchableSelect({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
+          variant="ghost"
           role="combobox"
           aria-expanded={open}
-          className={cn("w-full justify-between", className)}
+          className={cn("flex max-w-[100px] justify-between px-0 hover:bg-transparent text-neutral-400 hover:text-foreground", className)}
           disabled={disabled}
         >
-          {selectedOption ? selectedOption.label : placeholder}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <p className="text-xs">{selectedOption ? selectedOption.label : placeholder}</p>
+          <ChevronDown className="h-3 w-3 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
+      <PopoverContent align="start" className="w-auto p-0">
         <Command>
-          <CommandInput placeholder={`Search ${placeholder.toLowerCase()}...`} />
+          <CommandInput placeholder={`Search ${placeholder.toLowerCase()}...`} className="text-xs" />
           <CommandList>
             <CommandEmpty>{emptyMessage}</CommandEmpty>
             <CommandGroup className="max-h-[300px] overflow-auto">
               {options.map((option, i) => (
                 <CommandItem key={i} value={option.value} onSelect={handleSelect}>
-                  <Check className={cn("mr-2 h-4 w-4", selected === option.value ? "opacity-100" : "opacity-0")} />
-                  {option.label}
+                  <Check className={cn("h-4 w-4", selected === option.value ? "opacity-100" : "opacity-0")} />
+                  <p className="text-xs">{option.label}</p>
                 </CommandItem>
               ))}
             </CommandGroup>

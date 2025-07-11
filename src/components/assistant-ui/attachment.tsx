@@ -108,7 +108,7 @@ const AttachmentThumb: FC = () => {
   const isImage = useAttachment((a) => a.type === "image");
   const src = useAttachmentSrc();
   return (
-    <Avatar className="bg-muted flex size-10 items-center justify-center rounded border text-sm">
+    <Avatar className="bg-muted flex size-7 items-center justify-center rounded border text-sm">
       <AvatarFallback delayMs={isImage ? 200 : 0}>
         <FileIcon />
       </AvatarFallback>
@@ -137,12 +137,9 @@ const AttachmentUI: FC = () => {
       <AttachmentPrimitive.Root className="relative mt-3">
         <AttachmentPreviewDialog>
           <TooltipTrigger asChild>
-            <div className="flex h-12 w-40 items-center justify-center gap-2 rounded-lg border p-1">
+            <div className="flex h-9 w-20 items-center justify-center gap-2 rounded-lg border p-1">
               <AttachmentThumb />
               <div className="flex-grow basis-0">
-                <p className="text-muted-foreground line-clamp-1 text-ellipsis break-all text-xs font-bold">
-                  <AttachmentPrimitive.Name />
-                </p>
                 <p className="text-muted-foreground text-xs">{typeLabel}</p>
               </div>
             </div>
@@ -181,7 +178,7 @@ export const UserMessageAttachments: FC = () => {
 
 export const ComposerAttachments: FC = () => {
   return (
-    <div className="flex w-full flex-row gap-3 overflow-x-auto">
+    <div className="flex w-full flex-row gap-3 px-2 overflow-x-auto">
       <ComposerPrimitive.Attachments
         components={{ Attachment: AttachmentUI }}
       />
@@ -195,7 +192,7 @@ export const ComposerAddAttachment: FC = () => {
       <TooltipIconButton
         className="my-2.5 size-8 p-2 rounded-full transition-opacity ease-in"
         tooltip="Add Attachment"
-        variant="ghost"
+        variant="secondary"
       >
         <PaperclipIcon />
       </TooltipIconButton>
