@@ -5,6 +5,7 @@ import { FaGithub } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";
+import { InstallPwaButton } from "../install-pwa";
 
 export const Hero = () => (
   <div className="w-full py-20">
@@ -24,9 +25,7 @@ export const Hero = () => (
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="https://github.com/byjit/floa-lite" className={cn(buttonVariants({ variant: 'outline', size: 'lg' }))}>
-              Github <FaGithub className="h-6 w-6" />
-            </Link>
+            <InstallPwaButton variant={'outline'} />
             <LoginButton text="Access yours" showArrow />    
           </div>
         </div>
