@@ -47,13 +47,15 @@ export const Hero = () => (
             <div className="space-y-2 text-sm text-neutral-400">
               <p>Multiple winning AI providers in one platform</p>
               <Separator />
-              <p>Agentic to connect your apps with MCPs</p>
+              <p>Fully Agentic - connect your apps and interact with them</p>
               <Separator />
               <p>Open source and secure</p>
               <Separator />
               <p>Free for BYOK users</p>
               <Separator />
               <p>Project oriented so that you get separate spaces for your chats related to different work aspects</p>
+              <Separator />
+              <p>Great mobile and desktop experience alike</p>
             </div>
           </div>
         </div>
