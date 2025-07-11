@@ -1,6 +1,7 @@
 import { HydrateClient } from '@/trpc/server';
 import Header from '@/components/block/Header';
 import { Hero } from '@/components/landing/hero';
+import { InstallPwaPrompt } from '@/components/install-pwa';
 
 export default async function Home() {
   return (
@@ -8,6 +9,7 @@ export default async function Home() {
       <div className="min-h-screen flex flex-col">
         <Header />
         <Hero />
+        <InstallPwaPrompt />
       </div>
     </HydrateClient>
   );
