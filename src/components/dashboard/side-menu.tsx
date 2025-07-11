@@ -31,14 +31,9 @@ const SideMenuClient = ({ session }: { session: Session }) => {
 
         {/* Navigation Links */}
         <nav className="flex flex-col text-neutral-500 space-y-4">
-            <Link href="/dashboard" className={cn("flex items-center space-x-3 hover:text-neutral-300", pathname === "/dashboard" && "text-white")}>
+              <Link href="/dashboard/projects" className={cn("flex items-center space-x-3 hover:text-neutral-300", pathname === "/dashboard/projects" && "text-white")}>
                 <BarChart3 className="w-4 h-4" />
-                <span className="text-sm">Overview</span>
-            </Link>
-
-            <Link href="/dashboard/settings" className={cn("flex items-center space-x-3 hover:text-neutral-300", pathname === "/dashboard/settings" && "text-white")}>
-                <Settings className="w-4 h-4" />
-                <span className="text-sm">Settings</span>
+                  <span className="text-sm">Projects</span>
             </Link>
 
             <div className="border-t pt-4 space-y-4">
