@@ -5,7 +5,7 @@ import { toReadableStream } from "@/lib/utils";
 import { masterWorkflow } from "@/lib/workflows/master-workflow";
 
 export const runtime = "edge";
-export const maxDuration = 30;
+export const maxDuration = 60;
 
 export async function POST(req: Request) {
   const { messages }: { messages: Messages } = await req.json();
