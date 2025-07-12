@@ -33,6 +33,7 @@ import {
   UserMessageAttachments,
 } from "@/components/assistant-ui/attachment";
 import { AiModelSelector } from "./model-selector";
+import { AgentConfigurationBar } from "./agent-configuration-bar";
 
 export const Thread: FC = () => {
   return (
@@ -59,8 +60,9 @@ export const Thread: FC = () => {
         <div className="sticky bottom-0 mt-3 flex w-full max-w-[var(--thread-max-width)] flex-col items-center justify-end rounded-t-lg bg-inherit pb-3 z-10 shadow-2xl shadow-black/30 backdrop-blur-sm">
           <ThreadScrollToBottom />
           <Composer />
+          <AgentConfigurationBar />
         </div>
-        {/* <ThreadWelcome /> */}
+        <ThreadWelcome />
       </ThreadPrimitive.Viewport>
     </ThreadPrimitive.Root>
   );
@@ -91,19 +93,20 @@ const ThreadWelcome: FC = () => {
 const ThreadWelcomeSuggestions: FC = () => {
   return (
     <div className="mt-14 flex flex-col w-full items-center justify-center gap-4">
+      <p className="text-sm text-muted-foreground">Try these examples to get started</p>
       {[
         {
-          prompt: "Write me an email",
+          prompt: "Write me an email: \n\n",
           icon: <MailIcon className="w-4 h-4" />,
           label: "Write me an email",
         },
         {
           prompt: "What's on my calendar today? ",
           icon: <CalendarIcon className="w-4 h-4" />,
-          label: "What's on my calendar today",
+          label: "Check my calendar",
         },
         {
-          prompt: "Deep research the topic: ",
+          prompt: "Deep research the topic: \n\n",
           icon: <SearchIcon className="w-4 h-4" />,
           label: "Deep research a topic",
         },
@@ -113,7 +116,7 @@ const ThreadWelcomeSuggestions: FC = () => {
           className="flex max-w-sm grow basis-0 gap-2 text-sm text-neutral-400 hover:text-foreground items-center justify-center rounded-full bg-secondary border py-2 px-4 transition-colors ease-in"
           prompt={suggestion.prompt}
           method="replace"
-          autoSend
+          autoFocus
         >
           {suggestion.icon}{suggestion.label}
         </ThreadPrimitive.Suggestion>

@@ -41,7 +41,7 @@ export const AgentConfigurationBar = () => {
     }, [composerRuntime, creativity, humanised, project]);
 
     return (
-        <div className="flex items-center justify-between w-full px-4 max-w-[42rem] mx-auto">
+        <div className="flex items-center justify-between w-full px-4 max-w-[42rem] mx-auto mt-2">
             {/* Left side: Folder icon and SearchableSelect */}
             <div className="flex items-center px-3 gap-2">
                 <FolderClosedIcon className="h-4 w-4 text-neutral-500" />

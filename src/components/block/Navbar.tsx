@@ -18,7 +18,7 @@ export function Navbar({session}: {session: Session}) {
       </Link>
       <div className="flex items-center space-x-4">
         <Link href="/agents" className={cn("text-sm text-slate-300", pathname === "/agents" && "text-white")}>Agents</Link>
-        <Link href="/dashboard" className={cn("text-sm text-slate-300", pathname === "/dashboard" && "text-white")}>Dashboard</Link>
+        <Link href="/dashboard/projects" className={cn("text-sm text-slate-300", pathname.includes("/dashboard") && "text-white")}>Dashboard</Link>
       </div>
 
       <div className="relative">
