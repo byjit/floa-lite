@@ -13,9 +13,7 @@ export const projectsToTools = sqliteTable(
       .notNull()
       .references(() => tool.id, { onDelete: "cascade" }),
   },
-  (t) => ({
-    pk: primaryKey({ columns: [t.projectId, t.toolId] }),
-  })
+  (t) => [primaryKey({ columns: [t.projectId, t.toolId] })]
 );
 
 export const projectsToToolsRelations = relations(projectsToTools, ({ one }) => ({

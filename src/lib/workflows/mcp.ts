@@ -1,3 +1,4 @@
+// https://github.com/langchain-ai/langchainjs/tree/main/libs/langchain-mcp-adapters
 import { MultiServerMCPClient } from "@langchain/mcp-adapters";
 import { ChatOpenAI } from "@langchain/openai";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";

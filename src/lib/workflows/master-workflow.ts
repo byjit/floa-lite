@@ -193,10 +193,7 @@ const workflow = new StateGraph(WorkflowStateAnnotation)
 	.addEdge("agent", END);
 
 // Compile and export the workflow
-export const masterWorkflow = (async () => {
-	const agent = await reactAgent;
-	return workflow.compile();
-})();
+export const masterWorkflow = workflow.compile();
 
 // Export individual components for testing
 export {
