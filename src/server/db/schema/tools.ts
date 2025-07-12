@@ -36,8 +36,8 @@ export const tool = sqliteTable("tool", {
   configuration: text('configuration', { mode: 'json' }).$type<McpServerConfig>(), // JSON object for tool-specific configuration (e.g., API keys, endpoints)
     userId: text('user_id').references(() => user.id, { onDelete: 'cascade' }), // Optional: if tool is user-specific
     metadata: text('metadata'),
-    createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
-    updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()
+  createdAt: integer('created_at', { mode: 'timestamp' }),
+  updatedAt: integer('updated_at', { mode: 'timestamp' })
 }, (table) => [
     index("name_type_idx").on(table.name, table.type)
 ]);

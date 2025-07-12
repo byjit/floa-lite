@@ -7,3 +7,4 @@ export * from "./knowledge";
 export * from "./conversation";
 export * from "./ai-model";
 export * from "./tools";
+export * from "./projects_to_tools";

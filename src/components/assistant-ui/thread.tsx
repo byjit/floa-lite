@@ -130,7 +130,7 @@ const Composer: FC = () => {
         rows={3}
         autoFocus
         placeholder="Ask questions or get your work done"
-        className="placeholder:text-neutral-600 h-40 flex-grow resize-none border-none bg-transparent px-2 py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed"
+        className="placeholder:text-neutral-600 h-auto flex-grow resize-none border-none bg-transparent px-2 py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed"
       />
       <div className="flex justify-between w-full items-center">
         <div>

@@ -2,20 +2,20 @@
 
 "use client"
 
-import { Folder, FolderClosedIcon, SlidersVertical } from "lucide-react"
+import { FolderClosedIcon, SlidersVertical } from "lucide-react"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
 import { SearchableSelect, Option } from "@/components/searchable-select"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
-import { useEffect, useState } from "react"
-import { useComposerRuntime, useRuntimeState, tool } from "@assistant-ui/react";
+import { useEffect } from "react"
+import { useComposerRuntime } from "@assistant-ui/react";
+import { Switch } from "../ui/switch"
+import { useAgentSettingsStore } from "@/store/agent-settings"
 
 export const AgentConfigurationBar = () => {
     const composerRuntime = useComposerRuntime();
-    const [creativity, setCreativity] = useState("balanced")
-    const [humanised, setHumanised] = useState("balanced")
-    const [project, setProject] = useState("project1")
+    const { creativity, humanised, project, setCreativity, setHumanised, setProject } = useAgentSettingsStore();
 
     const projectOptions: Option[] = [
         { value: "project1", label: "Project Alpha" },
@@ -38,7 +38,7 @@ export const AgentConfigurationBar = () => {
                 project,
             }
         })
-    }, [composerRuntime, creativity, humanised, project])
+    }, [composerRuntime, creativity, humanised, project]);
 
     return (
         <div className="flex items-center justify-between w-full px-4 max-w-[42rem] mx-auto">
@@ -47,7 +47,8 @@ export const AgentConfigurationBar = () => {
                 <FolderClosedIcon className="h-4 w-4 text-neutral-500" />
                 <SearchableSelect
                     options={projectOptions}
-                    placeholder={project}
+                    value={project}
+                    placeholder="Select a project"
                     emptyMessage="No projects found."
                     onValueChange={(value) => setProject(value)}
                     className="min-w-[60px] text-xs"
@@ -63,7 +64,7 @@ export const AgentConfigurationBar = () => {
                 </PopoverTrigger>
                 <PopoverContent className="w-48 p-2 space-y-2">
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-4">
                         <Label htmlFor="creativity" className="text-xs font-medium">Creativity</Label>
                         <Select value={creativity} onValueChange={setCreativity}>
                             <SelectTrigger id="creativity" className="h-9 text-xs max-w-[100px] ml-auto">
@@ -79,20 +80,9 @@ export const AgentConfigurationBar = () => {
                         </Select>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-4">
                         <Label htmlFor="humanised" className="text-xs font-medium">Humanised</Label>
-                        <Select value={humanised} onValueChange={setHumanised}>
-                            <SelectTrigger id="humanised" className="h-9 text-xs max-w-[100px] ml-auto">
-                                <SelectValue placeholder="Select humanised" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {agentOptions.map((option) => (
-                                    <SelectItem key={option.value} value={option.value}>
-                                        {option.label}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                        <Switch id="humanised" checked={humanised} onCheckedChange={setHumanised} />
                     </div>
                 </PopoverContent>
             </Popover>
