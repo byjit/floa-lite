@@ -15,7 +15,7 @@ export const useAgentSettingsStore = create<AgentSettingsState>()(
     (set) => ({
       creativity: 'balanced',
       humanised: false,
-      project: 'project1',
+          project: '',
       setCreativity: (creativity) => set({ creativity }),
       setHumanised: (humanised) => set({ humanised }),
       setProject: (project) => set({ project }),

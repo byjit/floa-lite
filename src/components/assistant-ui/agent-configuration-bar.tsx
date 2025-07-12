@@ -2,28 +2,31 @@
 
 "use client"
 
-import { FolderClosedIcon, SlidersVertical } from "lucide-react"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Button } from "@/components/ui/button"
-import { SearchableSelect, Option } from "@/components/searchable-select"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Label } from "@/components/ui/label"
-import { useEffect } from "react"
+import { FolderClosedIcon, SlidersVertical } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { SearchableSelect, Option } from "@/components/searchable-select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { useEffect, useMemo } from "react";
 import { useComposerRuntime } from "@assistant-ui/react";
-import { Switch } from "../ui/switch"
-import { useAgentSettingsStore } from "@/store/agent-settings"
+import { Switch } from "../ui/switch";
+import { useAgentSettingsStore } from "@/store/agent-settings";
+import { trpc } from "@/trpc/react";
 
 export const AgentConfigurationBar = () => {
     const composerRuntime = useComposerRuntime();
     const { creativity, humanised, project, setCreativity, setHumanised, setProject } = useAgentSettingsStore();
 
-    const projectOptions: Option[] = [
-        { value: "project1", label: "Project Alpha" },
-        { value: "project2", label: "Project Beta" },
-        { value: "project3", label: "Project Gamma" },
-    ]
+    const { data: projects, isLoading, isError } = trpc.project.getProjects.useQuery();
 
-    const agentOptions: Option[] = [
+    const projectOptions: Option[] = useMemo(() => {
+        if (!projects) return [{ value: "", label: "No project" }];
+        const options = projects.map((p) => ({ value: p.id, label: p.title }));
+        return options;
+    }, [projects]);
+
+    const creativityOptions: Option[] = [
         { value: "low", label: "Low" },
         { value: "balanced", label: "Balanced" },
         { value: "high", label: "High" },
@@ -48,10 +51,11 @@ export const AgentConfigurationBar = () => {
                 <SearchableSelect
                     options={projectOptions}
                     value={project}
-                    placeholder="Select a project"
-                    emptyMessage="No projects found."
+                    placeholder={isLoading ? "Loading..." : "Select a project"}
+                    emptyMessage={isError ? "Error loading projects." : "No projects found."}
                     onValueChange={(value) => setProject(value)}
                     className="min-w-[60px] text-xs"
+                    disabled={isLoading || isError}
                 />
             </div>
 
@@ -71,7 +75,7 @@ export const AgentConfigurationBar = () => {
                                 <SelectValue placeholder="Select creativity" />
                             </SelectTrigger>
                             <SelectContent>
-                                {agentOptions.map((option) => (
+                                {creativityOptions.map((option) => (
                                     <SelectItem key={option.value} value={option.value}>
                                         {option.label}
                                     </SelectItem>
