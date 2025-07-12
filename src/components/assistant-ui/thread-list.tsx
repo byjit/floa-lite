@@ -10,7 +10,11 @@ import { TooltipIconButton } from "@/components/assistant-ui/tooltip-icon-button
 
 export const ThreadList: FC = () => {
   return (
-    <ThreadListPrimitive.Root className="flex flex-col items-stretch gap-1.5">
+    <ThreadListPrimitive.Root className="flex flex-col items-stretch gap-1.5 p-4 mt-9">
+      <div className="flex justify-between items-center">
+        <p className="text-sm text-muted-foreground">Your past conversations</p>
+        <ThreadListNew />
+      </div>
       <ThreadListItems />
     </ThreadListPrimitive.Root>
   );
@@ -19,9 +23,9 @@ export const ThreadList: FC = () => {
 const ThreadListNew: FC = () => {
   return (
     <ThreadListPrimitive.New asChild>
-      <Button className="data-[active]:bg-muted hover:bg-muted flex items-center justify-start gap-1 rounded-lg px-2.5 py-2 text-start" variant="ghost">
+      <Button size="sm" className="flex items-center justify-start gap-1 rounded-lg px-2.5 py-2 text-start" variant="outline">
         <PlusIcon />
-        New Thread
+        New chat
       </Button>
     </ThreadListPrimitive.New>
   );

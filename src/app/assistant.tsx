@@ -9,6 +9,7 @@ import {
   WebSpeechSynthesisAdapter,
 } from "@assistant-ui/react";
 import { PDFAttachmentAdapter } from "@/components/assistant-ui/pdf-attachment-adapter";
+import { ThreadList } from "@/components/assistant-ui/thread-list";
 
 export const Assistant = () => {
   const runtime = useChatRuntime({
@@ -26,6 +27,7 @@ export const Assistant = () => {
   return (
     <AssistantRuntimeProvider runtime={runtime}>
       <Thread />
+      <ThreadList />
     </AssistantRuntimeProvider>
   );
 };

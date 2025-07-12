@@ -70,7 +70,6 @@ export const Thread: FC = () => {
           <AgentConfigurationBar />
         </div>
         <ThreadWelcome />
-        <ThreadList />
       </ThreadPrimitive.Viewport>
     </ThreadPrimitive.Root>
   );
