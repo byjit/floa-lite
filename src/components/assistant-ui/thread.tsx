@@ -34,6 +34,13 @@ import {
 } from "@/components/assistant-ui/attachment";
 import { AiModelSelector } from "./model-selector";
 import { AgentConfigurationBar } from "./agent-configuration-bar";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import { ThreadList } from "./thread-list";
 
 export const Thread: FC = () => {
   return (
@@ -63,6 +70,7 @@ export const Thread: FC = () => {
           <AgentConfigurationBar />
         </div>
         <ThreadWelcome />
+        <ThreadList />
       </ThreadPrimitive.Viewport>
     </ThreadPrimitive.Root>
   );
@@ -92,35 +100,46 @@ const ThreadWelcome: FC = () => {
 
 const ThreadWelcomeSuggestions: FC = () => {
   return (
-    <div className="mt-14 flex flex-col w-full items-center justify-center gap-4">
-      <p className="text-sm text-muted-foreground">Try these examples to get started</p>
-      {[
-        {
-          prompt: "Write me an email: \n\n",
-          icon: <MailIcon className="w-4 h-4" />,
-          label: "Write me an email",
-        },
-        {
-          prompt: "What's on my calendar today? ",
-          icon: <CalendarIcon className="w-4 h-4" />,
-          label: "Check my calendar",
-        },
-        {
-          prompt: "Deep research the topic: \n\n",
-          icon: <SearchIcon className="w-4 h-4" />,
-          label: "Deep research a topic",
-        },
-      ].map((suggestion, idx) => (
-        <ThreadPrimitive.Suggestion
-          key={suggestion.prompt}
-          className="flex max-w-sm grow basis-0 gap-2 text-sm text-neutral-400 hover:text-foreground items-center justify-center rounded-full bg-secondary border py-2 px-4 transition-colors ease-in"
-          prompt={suggestion.prompt}
-          method="replace"
-          autoFocus
-        >
-          {suggestion.icon}{suggestion.label}
-        </ThreadPrimitive.Suggestion>
-      ))}
+    <div className="mt-7 w-full flex flex-col items-center justify-center space-y-4">
+      <Accordion type="single" collapsible className="w-full max-w-md mx-auto">
+        <AccordionItem value="examples" className="border-none">
+          <AccordionTrigger className="flex items-center justify-center gap-2 text-sm text-muted-foreground rounded-lg px-4 py-2 hover:bg-secondary/60 transition-colors">
+            <span>Try these examples to get started</span>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="flex flex-col md:flex-row gap-2 flex-wrap justify-center mt-2">
+              {[
+                {
+                  prompt: "Write me an email: \n\n",
+                  icon: MailIcon,
+                  label: "Write me an email",
+                },
+                {
+                  prompt: "What's on my calendar today? ",
+                  icon: CalendarIcon,
+                  label: "Check my calendar",
+                },
+                {
+                  prompt: "Deep research the topic: \n\n",
+                  icon: SearchIcon,
+                  label: "Deep research a topic",
+                },
+              ].map((suggestion, idx) => (
+                <ThreadPrimitive.Suggestion
+                  key={suggestion.prompt}
+                  className="flex gap-2 text-sm text-neutral-400 hover:text-foreground items-center justify-center rounded-full bg-secondary border py-2 px-4 transition-colors ease-in"
+                  prompt={suggestion.prompt}
+                  method="replace"
+                  autoFocus
+                >
+                  <suggestion.icon className="w-4 h-4" />
+                  <p className="text-sm min-w-[100px]">{suggestion.label}</p>
+                </ThreadPrimitive.Suggestion>
+              ))}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 };

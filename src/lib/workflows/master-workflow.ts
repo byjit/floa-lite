@@ -16,7 +16,6 @@ const model = new ChatOpenAI({
 	temperature: 0
 });
 
-const embeddings = new OpenAIEmbeddings();
 
 // Function to fetch MCP configurations from the database
 async function getMcpToolsFromDatabase() {
@@ -151,22 +150,8 @@ async function performSummarization(state: typeof WorkflowStateAnnotation.State)
 // Create the reAct agent with tools
 const reactAgent = createReactAgent({
 	llm: model,
-	tools: [retrieverTool, indexDocumentTool, ...(await (async () => {
-		const mcpServers = await getMcpToolsFromDatabase();
-		const client = new MultiServerMCPClient({
-			useStandardContentBlocks: true,
-			mcpServers,
-		});
-		return await client.getTools();
-	})())],
-	messageModifier: `You are a helpful AI assistant with access to a knowledge base through document search. 
-
-Instructions:
-1. When users ask questions, first search the knowledge base using the search_documents tool to find relevant information.
-2. If you find relevant information, use it to provide accurate and detailed answers.
-3. If no relevant information is found, provide the best answer you can based on your general knowledge, but mention that you couldn't find specific information in the knowledge base.
-4. You can also help users index new documents into the knowledge base when requested.
-5. Be conversational and helpful, and always strive to provide accurate information.`,
+	tools: [],
+	messageModifier: `You are a helpful AI assistant help users with their queries.`,
 });
 
 // Agent execution node

@@ -7,7 +7,6 @@ import {
   SimpleImageAttachmentAdapter,
   SimpleTextAttachmentAdapter,
   WebSpeechSynthesisAdapter,
-  ChatModelAdapter
 } from "@assistant-ui/react";
 import { PDFAttachmentAdapter } from "@/components/assistant-ui/pdf-attachment-adapter";
 
