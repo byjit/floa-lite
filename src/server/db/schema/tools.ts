@@ -3,10 +3,25 @@ import { createSelectSchema, createUpdateSchema, createInsertSchema } from 'driz
 import { z } from "zod";
 import { createId } from "@paralleldrive/cuid2";
 import { user } from "./user";
-import { project } from "./project";
+import { relations } from "drizzle-orm";
+import { projectsToTools } from "./projects_to_tools";
 
 export const toolType = ['integration', 'mcp'] as const;
 export const toolTypeSchema = z.enum(toolType);
+
+// Define the Zod schema for MCP server configuration
+export const mcpServerConfigSchema = z.object({
+  url: z.string().url(),
+  headers: z.record(z.string(), z.string()).optional(),
+  transport: z.enum(["sse", "http"]).optional(),
+  reconnect: z.object({
+    enabled: z.boolean(),
+    maxAttempts: z.number().int().positive(),
+    delayMs: z.number().int().positive(),
+  }).optional(),
+});
+
+export type McpServerConfig = z.infer<typeof mcpServerConfigSchema>;
 
 /**
  * Defines the tools available for AI agents to use.
@@ -18,17 +33,18 @@ export const tool = sqliteTable("tool", {
     name: text('name').notNull(), // Name of the tool, e.g., "Weather API", "GitHub Tool"
     type: text('type', { enum: toolType }).notNull(), // Type of the tool, e.g., 'api', 'mcp'
     description: text('description'), // A brief description of what the tool does
-    configuration: text('configuration', { mode: 'json' }), // JSON object for tool-specific configuration (e.g., API keys, endpoints)
-    projectId: text('project_id').references(() => project.id, { onDelete: 'cascade' }), // Optional: if tool is project-specific
+  configuration: text('configuration', { mode: 'json' }).$type<McpServerConfig>(), // JSON object for tool-specific configuration (e.g., API keys, endpoints)
     userId: text('user_id').references(() => user.id, { onDelete: 'cascade' }), // Optional: if tool is user-specific
     metadata: text('metadata'),
     createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
     updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()
 }, (table) => [
-    index("user_id_idx").on(table.userId),
-    index("project_id_idx").on(table.projectId),
     index("name_type_idx").on(table.name, table.type)
 ]);
+
+export const toolsRelations = relations(tool, ({ many }) => ({
+  projectsToTools: many(projectsToTools),
+}));
 
 export type Tool = typeof tool.$inferSelect;
 export const selectToolSchema = createSelectSchema(tool);

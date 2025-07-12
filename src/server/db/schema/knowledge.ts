@@ -24,10 +24,7 @@ export const knowledge = sqliteTable("knowledge", {
   metadata: text('metadata'),
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()
-}, (table) => [
-    index("user_id_idx").on(table.userId),
-    index("project_id_idx").on(table.projectId)
-]);
+});
 
 export type Knowledge = typeof knowledge.$inferSelect;
 export const selectKnowledgeSchema = createSelectSchema(knowledge);

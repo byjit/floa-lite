@@ -25,9 +25,7 @@ export const aiModel = sqliteTable("ai_model", {
     metadata: text('metadata'),
     createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
     updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()
-}, (table) => [
-    index("user_id_idx").on(table.userId),
-]);
+});
 
 export type AiModel = typeof aiModel.$inferSelect;
 export const selectAiModelSchema = createSelectSchema(aiModel);

@@ -3,6 +3,8 @@ import { createSelectSchema, createUpdateSchema, createInsertSchema } from 'driz
 import { z } from "zod";
 import { createId } from "@paralleldrive/cuid2";
 import { user } from "./user";
+import { relations } from "drizzle-orm";
+import { projectsToTools } from "./projects_to_tools";
 
 /**
  * A project represents a logical grouping of AI instructions, knowledge, and tools.
@@ -17,9 +19,11 @@ export const project = sqliteTable("project", {
   metadata: text('metadata'),
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()
-}, (table) => [
-    index("user_id_idx").on(table.userId)
-]);
+});
+
+export const projectRelations = relations(project, ({ many }) => ({
+  projectsToTools: many(projectsToTools),
+}));
 
 export type Project = typeof project.$inferSelect;
 export const selectProjectSchema = createSelectSchema(project);

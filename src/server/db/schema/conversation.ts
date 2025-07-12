@@ -21,8 +21,6 @@ export const conversation = sqliteTable("conversation", {
     createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
     updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()
 }, (table) => [
-    index("user_id_idx").on(table.userId),
-    index("project_id_idx").on(table.projectId),
     index("created_at_idx").on(table.createdAt)
 ]);
 

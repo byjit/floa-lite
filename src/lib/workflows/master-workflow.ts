@@ -5,6 +5,10 @@ import { tool } from "@langchain/core/tools";
 import { z } from "zod";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { HumanMessage, AIMessage, BaseMessage } from "@langchain/core/messages";
+import { MultiServerMCPClient } from "@langchain/mcp-adapters";
+import { db } from "@/server/db";
+import { tool as toolSchema, toolType } from "@/server/db/schema/tools";
+import { eq } from "drizzle-orm";
 
 // Initialize OpenAI model and embeddings
 const model = new ChatOpenAI({
@@ -13,6 +17,29 @@ const model = new ChatOpenAI({
 });
 
 const embeddings = new OpenAIEmbeddings();
+
+// Function to fetch MCP configurations from the database
+async function getMcpToolsFromDatabase() {
+	const mcpTools = await db.query.tool.findMany({
+		where: eq(toolSchema.type, "mcp"),
+	});
+
+	const mcpServers: Record<string, any> = {};
+	for (const mcpTool of mcpTools) {
+		if (mcpTool.configuration) {
+			try {
+				const config = mcpTool.configuration;
+				if (config.url) { // Assuming each MCP tool config has a 'url'
+					mcpServers[mcpTool.name] = config;
+				}
+			} catch (e) {
+				console.error(`Error parsing MCP tool configuration for ${mcpTool.name}:`, e);
+			}
+		}
+	}
+	return mcpServers;
+}
+
 
 // Define enhanced state annotation
 const WorkflowStateAnnotation = Annotation.Root({
@@ -124,7 +151,14 @@ async function performSummarization(state: typeof WorkflowStateAnnotation.State)
 // Create the reAct agent with tools
 const reactAgent = createReactAgent({
 	llm: model,
-	tools: [retrieverTool, indexDocumentTool],
+	tools: [retrieverTool, indexDocumentTool, ...(await (async () => {
+		const mcpServers = await getMcpToolsFromDatabase();
+		const client = new MultiServerMCPClient({
+			useStandardContentBlocks: true,
+			mcpServers,
+		});
+		return await client.getTools();
+	})())],
 	messageModifier: `You are a helpful AI assistant with access to a knowledge base through document search. 
 
 Instructions:
@@ -159,7 +193,10 @@ const workflow = new StateGraph(WorkflowStateAnnotation)
 	.addEdge("agent", END);
 
 // Compile and export the workflow
-export const masterWorkflow = workflow.compile();
+export const masterWorkflow = (async () => {
+	const agent = await reactAgent;
+	return workflow.compile();
+})();
 
 // Export individual components for testing
 export {
