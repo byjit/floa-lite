@@ -7,7 +7,7 @@ export const Hero = () => (
       <div className="grid grid-cols-1 gap-8 items-center md:grid-cols-2">
         <div className="flex gap-8 flex-col">
           <div>
-            <Badge variant="outline">Accepting waitlist!</Badge>
+            <Badge variant="outline">Waitlist open!</Badge>
           </div>
           <div className="flex gap-4 flex-col">
             <h1 className="text-5xl md:text-7xl max-w-lg text-left font-regular">
