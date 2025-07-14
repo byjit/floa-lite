@@ -11,11 +11,11 @@ export const Hero = () => (
           </div>
           <div className="flex gap-4 flex-col">
             <h1 className="text-5xl md:text-7xl max-w-lg text-left font-regular">
-              AI agents for you
+              The All-in-one AI agent chat platform
             </h1>
             <p className="text-lg leading-relaxed max-w-lg text-left">
-            Replace your perplexity, openai and claude subscription with a single platform that can connect your apps and answer or perform tasks across them.
-            Do more than just chat with AI, connect your apps and tools to AI agents and let them do the work for you.
+              Replace your perplexity, openai and claude subscription with a single platform that can connect your apps and answer/perform tasks across them.
+              Save money and also get more features.
             </p>
           </div>
           <div className="flex items-center gap-4">
