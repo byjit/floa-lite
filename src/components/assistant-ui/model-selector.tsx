@@ -8,11 +8,10 @@ export const AiModelSelector = () => {
 
   // Dummy data for AI models
   const aiModels: Option[] = [
-    { value: "openai-gpt4", label: "OpenAI GPT-4" },
-      { value: "anthropic-claude3 super pro", label: "Anthropic Claude 3 super pro model" },
-    { value: "perplexity-70b", label: "Perplexity 70B" },
-    { value: "google-gemini-pro", label: "Google Gemini Pro" },
-    { value: "mistral-7b", label: "Mistral 7B" },
+    { value: "grok-4", label: "Grok 4" },
+    { value: "claude-4-sonnet", label: "Claude 4 Sonnet" },
+    { value: "sonar-pro", label: "Sonar Pro" },
+    { value: "gemini-2.5-pro", label: "Gemini 2.5 Pro" },
   ];
 
   const handleModelChange = (value: string) => {
