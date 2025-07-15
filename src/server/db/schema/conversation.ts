@@ -1,6 +1,6 @@
 import { sqliteTable, text, integer, index } from "drizzle-orm/sqlite-core";
 import { createSelectSchema, createUpdateSchema, createInsertSchema } from 'drizzle-zod';
-import { z } from "zod";
+import { number, z } from "zod";
 import { createId } from "@paralleldrive/cuid2";
 import { user } from "./user";
 import { project } from "./project";
@@ -17,6 +17,7 @@ export const conversation = sqliteTable("conversation", {
     messages: text('messages', { mode: 'json' }).notNull(), // JSON array of messages
     userId: text('user_id').notNull().references(() => user.id, { onDelete: 'cascade' }),
     projectId: text('project_id').notNull().references(() => project.id, { onDelete: 'cascade' }),
+    bookmarked: integer('bookmarked', { mode: 'boolean' }).notNull().default(false),
     metadata: text('metadata'),
     createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
     updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()

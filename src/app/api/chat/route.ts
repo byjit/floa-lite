@@ -10,7 +10,8 @@ export const maxDuration = 60;
 export async function POST(req: Request) {
   const session = await validateSession();
   const body = await req.json();
-  const { messages, runConfig: { custom: { creativity, humanised, project } } } = body;
+  const { messages, runConfig } = body;
+  console.log({ runConfig });
 
   const streamIterable = await masterWorkflow.stream({ messages }, { streamMode: "messages" });
 

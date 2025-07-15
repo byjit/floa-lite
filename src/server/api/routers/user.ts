@@ -6,20 +6,10 @@ import {
     publicProcedure,
 } from '@/server/api/trpc';
 import { eq } from 'drizzle-orm';
-import { aiModel, user } from '@/server/db/schema';
+import { user } from '@/server/db/schema';
 import { updateUserSchema } from '@/server/db/schema/user';
 
 export const userRouter = createTRPCRouter({
-    getAiModels: protectedProcedure
-        .query(async ({ ctx }) => {
-            const models = await ctx.db
-                .select()
-                .from(aiModel)
-                .where(eq(aiModel.userId, ctx.session.user.id))
-                .all();
-
-            return models;
-        }),
     updateUser: protectedProcedure
         .input(updateUserSchema)
         .mutation(async ({ ctx, input }) => {
