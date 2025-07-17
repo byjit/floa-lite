@@ -32,8 +32,6 @@ import { ChatView } from '@/components/assistant-ui/chat-view';
 
 export default function Chat({ messages: initialMessages }: { messages: UIMessage[] }) {
   const [input, setInput] = useState('');
-  const [selectedModel, setSelectedModel] = useState('');
-  const [selectedProject, setSelectedProject] = useState('My notion projects space');
   const [showExamples, setShowExamples] = useState(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -86,7 +84,7 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
               }
             }
           }}
-          className="flex-1 bg-transparent border-none focus-visible:ring-0 min-h-[60px] h-auto max-h-[400px] resize-none transition-all overflow-y-auto"
+          className="flex-1 bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 min-h-[60px] h-auto max-h-[400px] resize-none transition-all overflow-y-auto"
           rows={1}
           onPaste={e => {
             // After paste, let the value update, then resize
