@@ -8,6 +8,10 @@ export enum AiModelProvider {
     KIMI = "kimi",
     GROK = "grok",
     GROQ = "groq",
+    VOYAGE = "voyage",
+    PERPLEXITY = "perplexity",
+    ELEVENLABS = "elevenlabs",
+    OPENROUTER = "openrouter",
 }
 
 export enum AiModelCapability {
@@ -216,6 +220,21 @@ export const AI_MODELS_MAP: Record<string, AiModel> = {
             AiModelCapability.IMAGE_PROCESSING,
         ],
         knowledgeCutoffDate: new Date('2024-11-01'),
+    },
+    "gpt-4o": {
+        id: "gpt-4o",
+        name: "GPT-4o",
+        provider: AiModelProvider.OPENAI,
+        modelId: "gpt-4o",
+        contextWindow: 128_000,
+        maxOutputTokens: 16_384,
+        capabilities: [
+            AiModelCapability.TEXT,
+            AiModelCapability.STRUCTURED_OUTPUT,
+            AiModelCapability.TOOLS,
+            AiModelCapability.IMAGE_PROCESSING,
+        ],
+        knowledgeCutoffDate: new Date('2023-10-01'),
     },
 } as const;
 
