@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 export default async function LoginPage() {
     const session = await getSession();
     if (session) {
-        redirect('/agents');
+        redirect('/chat');
     }
     
     return (
@@ -23,7 +23,7 @@ export default async function LoginPage() {
                     <p className="text-sm text-muted-foreground">Sign in to your account to continue</p>
                 </CardContent>
                 <CardFooter>
-                    <LoginButton text="Sign in" redirectUrl="/agents" />
+                    <LoginButton text="Sign in" redirectUrl="/chat" />
                 </CardFooter>
             </Card>
         </div>

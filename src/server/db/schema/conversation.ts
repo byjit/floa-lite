@@ -12,11 +12,12 @@ import { project } from "./project";
  */
 export const conversation = sqliteTable("conversation", {
     id: text("id").primaryKey().$defaultFn(() => createId()),
-    title: text('title').notNull(), // A short title for the conversation
+    title: text('title').notNull().default('New chat'), // A short title for the conversation
     summary: text('summary'), // Optional summary of the conversation
     messages: text('messages', { mode: 'json' }).notNull(), // JSON array of messages
     userId: text('user_id').notNull().references(() => user.id, { onDelete: 'cascade' }),
     projectId: text('project_id').notNull().references(() => project.id, { onDelete: 'cascade' }),
+    projectName: text('project_name'),
     bookmarked: integer('bookmarked', { mode: 'boolean' }).notNull().default(false),
     metadata: text('metadata'),
     createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),

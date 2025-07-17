@@ -24,15 +24,35 @@ export const conversationRouter = createTRPCRouter({
         }),
 
     listConversations: protectedProcedure
-        .input(z.object({ projectId: z.string().optional() }))
+        .input(z.object({
+            projectId: z.string().optional(),
+            limit: z.number().min(1).max(100).default(10),
+            offset: z.number().min(0).default(0),
+        }))
         .query(async ({ ctx, input }) => {
-            return ctx.db.query.conversation.findMany({
+            const conversations = await ctx.db.query.conversation.findMany({
                 where: and(
                     input.projectId ? eq(conversation.projectId, input.projectId) : undefined,
                     eq(conversation.userId, ctx.session.user.id)
                 ),
                 orderBy: (conversationTable, { desc }) => [desc(conversationTable.createdAt)],
+                limit: input.limit,
+                offset: input.offset,
             });
+
+            // Get total count for pagination
+            const totalCount = await ctx.db.query.conversation.findMany({
+                where: and(
+                    input.projectId ? eq(conversation.projectId, input.projectId) : undefined,
+                    eq(conversation.userId, ctx.session.user.id)
+                ),
+            }).then(results => results.length);
+
+            return {
+                conversations,
+                totalCount,
+                hasMore: input.offset + input.limit < totalCount,
+            };
         }),
 
     getConversation: protectedProcedure

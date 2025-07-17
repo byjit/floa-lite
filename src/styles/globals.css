@@ -5,15 +5,15 @@
 
 @layer base {
   :root {
-    --background: #1f1f1f;
+    --background: #252424;
       --foreground: #f8f8f9;
       --card: #282829;
       --card-foreground: #f8fafc;
-      --popover: #282829;
+      --popover: #1c1b1b;
       --popover-foreground: #f8fafc;
       --primary: #2178f9;
         --primary-foreground: #f8fafc;
-        --secondary: #282829;
+        --secondary: #303030;
       --secondary-foreground: #f8fafc;
       --muted: #212121;
       --muted-foreground: #7c8795;
@@ -22,7 +22,7 @@
       --destructive: #7f1d1d;
       --destructive-foreground: #f8fafc;
       --border: #2f2f2f;
-        --input: #282829;
+        --input: #303030;
       --ring: #1d4ed8;
       --radius: 0.7rem;
       --chart-1: #2662d9;

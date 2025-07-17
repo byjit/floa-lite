@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 export const ChatView = ({ messages }: { messages: UIMessage[] }) => {
   return (
-    <div className="mt-8 space-y-10">
+    <div className="mt-8 space-y-10 pl-2 pr-6">
           {messages.map(message => (
             <div key={message.id} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`rounded-xl max-w-full`}>

@@ -25,15 +25,19 @@ import {
   Search,
   ChevronUp,
   Filter,
-  Square
+  Square,
+  Mic
 } from 'lucide-react';
 import { AiModelSelector } from '@/components/assistant-ui/model-selector';
 import { AgentConfigurationBar } from '@/components/assistant-ui/agent-configuration-bar';
 import { ChatView } from '@/components/assistant-ui/chat-view';
 import { DefaultChatTransport } from 'ai';
 import { useAgentSettingsStore } from '@/store/agent-settings';
+import { ChatHistory } from './assistant-ui/chat-history';
+import { Session } from 'auth';
+import { ExampleMessage } from './assistant-ui/example-message';
 
-export default function Chat({ messages: initialMessages }: { messages: UIMessage[] }) {
+export default function Chat({ messages: initialMessages, session }: { messages: UIMessage[], session: Session }) {
   const [input, setInput] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -63,15 +67,8 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
     }
   }, [initialMessages]);
 
-  const examplePrompts = [
-    { icon: Mail, text: "Write me an email", value: "Write me an email: \n\n" },
-    { icon: Search, text: "Deep research a topic", value: "Deep research the topic: \n\n" },
-    { icon: Calendar, text: "Check my calendar", value: "Check my calendar: \n\n" },
-  ];
-
   const handleExampleClick = (text: string) => {
     setInput(text);
-    // Focus the textarea after setting the input
     setTimeout(() => {
       textareaRef.current?.focus();
     }, 0);
@@ -89,12 +86,22 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
   };
 
   return (
-    <div className="flex flex-col h-full py-14 overflow-hidden">
-      <ChatView
-        messages={messages}
-      />
-      <div id='chat-input'>
-        <form onSubmit={handleSubmit} className="border bg-input rounded-lg mt-12 p-4">
+    <div className="flex flex-col h-screen py-14">
+      <div className="flex-1 overflow-y-auto pb-40">
+        <ChatView
+          messages={messages}
+        />
+        {messages.length === 0 && (
+          <div className='flex flex-col gap-2 h-full justify-center items-center'>
+            <div>
+              <h1 className='text-4xl text-primary font-bold text-center'>Hello {session.user.name?.split(' ')[0]}</h1>
+            </div>
+          </div>
+        )}
+      </div>
+      <div id='chat-input' className='fixed bottom-0 left-0 w-full z-10 bg-background'>
+        <div className='max-w-2xl mx-auto p-2 md:px-0 md:pt-0 pb-8'>
+          <form onSubmit={handleSubmit} className="border bg-input rounded-lg mt-2 p-2">
           <Textarea
             ref={textareaRef}
             value={input}
@@ -112,7 +119,7 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
                 }
               }
             }}
-            className="flex-1 bg-input mb-1 border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 min-h-[60px] h-auto max-h-[400px] resize-none transition-all overflow-y-auto"
+              className="flex-1 bg-input mb-1 border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 min-h-[60px] h-auto max-h-[400px] resize-none transition-all overflow-y-auto"
             rows={1}
             onPaste={e => {
               // After paste, let the value update, then resize
@@ -134,14 +141,23 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
           <div className="flex items-center justify-between">
             <AiModelSelector />
             <div className="flex items-center space-x-2 pr-3">
-              {/* <Button
+              <Button
                 type="button"
                 variant="ghost"
                 size="icon"
+                disabled
                 className="text-gray-400 hover:text-white"
               >
                 <Paperclip className="w-4 h-4" />
-              </Button> */}
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                disabled
+              >
+                <Mic className="w-4 h-4" />
+              </Button>
               {
                 status === 'streaming' || status === 'submitted' ? (
                   <Button
@@ -154,49 +170,20 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
                   </Button>
                 ) : (
                     <Button
-                type="submit"
-                size="icon"
-                className="bg-blue-600 hover:bg-blue-700 text-white rounded-full"
-                disabled={!input.trim()}
-              >
-                <ArrowUp className="w-4 h-4" />
-              </Button>
+                      type="submit"
+                      size="icon"
+                      className="rounded-full"
+                      disabled={!input.trim()}
+                    >
+                      <ArrowUp className="w-4 h-4" />
+                    </Button>
                 )
               }
             </div>
           </div>
         </form>
         <AgentConfigurationBar />
-      </div>
-      <div className="flex flex-col gap-2 flex-1">
-        {messages.length === 0 && (
-          <div className="mt-12 flex justify-center">
-            <div className="w-full max-w-xl">
-                <Accordion type="single" collapsible>
-                <AccordionItem value="examples" className="border-none">
-                  <AccordionTrigger className="justify-center text-center text-muted-foreground transition">
-                    Try these examples to get started
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className="flex flex-col items-center justify-center space-y-4 py-2">
-                      {examplePrompts.map((prompt, index) => (
-                        <Button
-                          key={index}
-                          variant="secondary"
-                          className="flex items-center space-x-3 rounded-full px-4 py-2 shadow-sm transition"
-                          onClick={() => handleExampleClick(prompt.value)}
-                        >
-                          <prompt.icon className="w-5 h-5" />
-                          <span className="text-muted-foreground font-light">{prompt.text}</span>
-                        </Button>
-                      ))}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </div>
-            </div>
-        )}
+        </div>
       </div>
     </div>
   );

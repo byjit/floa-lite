@@ -52,14 +52,14 @@ export const AgentConfigurationBar = () => {
 
             {/* Right side: SlidersVertical icon button with Popover */}
             <div className="flex items-center gap-1">
-                <p className="text-xs text-gray-500">{`creativity: ${creativity} | tone: ${tone} | humanised: ${humanised}`}</p>
+                <p className="text-xs hidden md:block text-gray-500">{`creativity: ${creativity} | tone: ${tone} | humanised: ${humanised}`}</p>
             <Popover>
                 <PopoverTrigger asChild>
                     <Button variant="ghost" size="icon" className="text-neutral-500 hover:text-foreground">
                         <SlidersVertical className="h-5 w-5" />
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-48 p-2 space-y-2">
+                    <PopoverContent side="right" align="end" className="w-48 p-2 space-y-2">
 
                     <div className="flex items-center gap-4">
                         <Label htmlFor="creativity" className="text-xs font-medium">Creativity</Label>
