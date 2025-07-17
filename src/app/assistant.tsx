@@ -29,16 +29,33 @@ import {
 import { AiModelSelector } from '@/components/assistant-ui/model-selector';
 import { AgentConfigurationBar } from '@/components/assistant-ui/agent-configuration-bar';
 import { ChatView } from '@/components/assistant-ui/chat-view';
+import { DefaultChatTransport } from 'ai';
+import { useAgentSettingsStore } from '@/store/agent-settings';
 
 export default function Chat({ messages: initialMessages }: { messages: UIMessage[] }) {
   const [input, setInput] = useState('');
   const [showExamples, setShowExamples] = useState(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const { aiModelId, creativity, humanised, project, tone } = useAgentSettingsStore();
 
   const { messages, sendMessage, setMessages, status, error, id, regenerate, resumeStream, stop, addToolResult } = useChat({
     maxSteps: 5,
     experimental_throttle: 2000,
     messages: initialMessages,
+    transport: new DefaultChatTransport({
+      prepareSendMessagesRequest: ({ id, body }) => {
+        return {
+          body: {
+            ...body,
+            modelId: aiModelId,
+            creativity,
+            humanised,
+            project,
+            tone,
+          },
+        };
+      },
+    }),
   });
 
   const examplePrompts = [
@@ -65,12 +82,15 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
 
   return (
     <div className="flex flex-col h-screen">
+      <div>
+        {JSON.stringify({ creativity, humanised, project, tone, aiModelId }, null, 2)}
+      </div>
       {/* Input Area */}
       <form onSubmit={handleSubmit} className="relative mt-20 border rounded-lg p-4">
         <Textarea
           ref={textareaRef}
           value={input}
-          placeholder="Ask questions or get your work done"
+          placeholder="Ask questions or get your work done..."
           onChange={e => {
             setInput(e.currentTarget.value);
             // Auto-resize logic with null check
@@ -137,7 +157,7 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
         ) : (
           <div className="mt-12 flex justify-center">
             <div className="w-full max-w-xl">
-              <Accordion type="single" collapsible defaultValue="examples">
+                <Accordion type="single" collapsible>
                 <AccordionItem value="examples" className="border-none">
                   <AccordionTrigger className="justify-center text-center text-muted-foreground transition">
                     Try these examples to get started
