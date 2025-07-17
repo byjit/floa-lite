@@ -16,7 +16,7 @@ export const ChatView = ({ messages }: { messages: UIMessage[] }) => {
                       case 'text':
                         return (
                           <div key={`${message.id}-${i}`}>
-                            <MarkdownText className={cn("text-card-foreground p-6 rounded-xl", message.role === 'user' && 'bg-secondary')}>
+                            <MarkdownText className={cn("text-card-foreground px-6 py-2 rounded-2xl", message.role === 'user' && 'bg-secondary')}>
                               {part.text}
                             </MarkdownText>
                           </div>

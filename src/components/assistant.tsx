@@ -187,7 +187,7 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
                           onClick={() => handleExampleClick(prompt.value)}
                         >
                           <prompt.icon className="w-5 h-5" />
-                          <span className="text-muted-foreground">{prompt.text}</span>
+                          <span className="text-muted-foreground font-light">{prompt.text}</span>
                         </Button>
                       ))}
                       </div>
