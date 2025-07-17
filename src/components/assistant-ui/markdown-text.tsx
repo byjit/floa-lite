@@ -138,7 +138,7 @@ const MarkdownTextImpl: FC<MarkdownTextProps> = ({ children, className }) => {
   };
 
   return (
-    <div className={cn("prose prose-sm max-w-none dark:prose-invert", className)}>
+    <div className={cn("prose-sm max-w-none prose-invert", className)}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={components}
@@ -159,7 +159,7 @@ const CodeHeader: FC<CodeHeaderProps> = ({ language, code }) => {
   };
 
   return (
-    <div className="flex items-center justify-between gap-4 mt-4 rounded-t-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white">
+    <div className="flex items-center justify-between gap-4 mt-4 rounded-t-lg px-4 py-2 text-sm font-semibold text-foreground">
       <span className="lowercase [&>span]:text-xs">{language}</span>
       <TooltipIconButton tooltip="Copy" onClick={onCopy}>
         {!isCopied && <CopyIcon />}

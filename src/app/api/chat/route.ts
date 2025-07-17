@@ -6,7 +6,7 @@ export const maxDuration = 30;
 
 type ChatRequest = {
   messages: UIMessage[];
-  modelId: string;
+  aiModelId: string;
   creativity: number;
   humanised: boolean;
   project: string;
@@ -14,12 +14,14 @@ type ChatRequest = {
 }
 
 export async function POST(req: Request) {
-  const { messages, modelId, creativity, humanised, project, tone }: ChatRequest = await req.json();
+  const body: ChatRequest = await req.json();
 
-  console.log(modelId, creativity, humanised, project, tone, messages);
+  console.log(JSON.stringify(body, null, 2));
+
+  const { messages, aiModelId, creativity, humanised, project, tone } = body;
 
   const result = streamText({
-    model: getModelClient(modelId) as LanguageModel,
+    model: getModelClient(aiModelId) as LanguageModel,
     messages: messages?.length ? convertToModelMessages(messages) : [],
     tools: {
       weather: tool({

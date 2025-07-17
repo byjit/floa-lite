@@ -34,24 +34,19 @@ import { useAgentSettingsStore } from '@/store/agent-settings';
 
 export default function Chat({ messages: initialMessages }: { messages: UIMessage[] }) {
   const [input, setInput] = useState('');
-  const [showExamples, setShowExamples] = useState(true);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const { aiModelId, creativity, humanised, project, tone } = useAgentSettingsStore();
 
-  const prepareSendMessagesRequest = useCallback(({ id, body, messages = [] }: { id: string; body: any, messages: UIMessage[] }) => {
+  const prepareSendMessagesRequest = useCallback(({ id, body, messages }: { id: string; body: any, messages?: UIMessage[] }) => {
+    const agentSettingsStates = useAgentSettingsStore.getState();
     return {
       body: {
         ...body,
-        modelId: aiModelId,
-        creativity,
-        humanised,
-        project,
-        tone,
+        ...agentSettingsStates,
         messages: messages,
         id,
       },
     };
-  }, [aiModelId, creativity, humanised, project, tone]);
+  }, []);
 
   const { messages, sendMessage, setMessages, status, error, id, regenerate, resumeStream, stop, addToolResult } = useChat({
     maxSteps: 5,
@@ -61,6 +56,11 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
     }),
   });
 
+  useEffect(() => {
+    if (initialMessages) {
+      setMessages(initialMessages);
+    }
+  }, [initialMessages]);
 
   const examplePrompts = [
     { icon: Mail, text: "Write me an email", value: "Write me an email: \n\n" },
@@ -85,9 +85,12 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen overflow-hidden">
+      <ChatView
+        messages={messages}
+      />
       {/* Input Area */}
-      <form onSubmit={handleSubmit} className="relative mt-20 border rounded-lg p-4">
+      <form onSubmit={handleSubmit} className="border rounded-lg p-4">
         <Textarea
           ref={textareaRef}
           value={input}
@@ -148,11 +151,7 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
       </form>
       <AgentConfigurationBar />
       <div className="flex flex-col gap-2 flex-1">
-        {messages.length > 0 ? (
-          <ChatView
-            messages={messages}
-          />
-        ) : (
+        {messages.length === 0 && (
           <div className="mt-12 flex justify-center">
             <div className="w-full max-w-xl">
                 <Accordion type="single" collapsible>

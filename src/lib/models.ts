@@ -103,7 +103,7 @@ export const AI_MODELS_MAP: Record<string, AiModel> = {
     },
     "grok-4-0709": {
         id: "grok-4-0709",
-        name: "Grok 4 (0709)",
+        name: "Grok 4",
         provider: AiModelProvider.GROK,
         modelId: "grok-4-0709",
         contextWindow: 256000,
