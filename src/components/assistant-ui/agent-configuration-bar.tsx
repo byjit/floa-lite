@@ -2,7 +2,7 @@
 
 "use client"
 
-import { FolderClosedIcon, SlidersVertical } from "lucide-react";
+import { FolderClosedIcon, PanelRight, SlidersVertical } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { SearchableSelect, Option } from "@/components/searchable-select";
@@ -13,6 +13,7 @@ import { Switch } from "../ui/switch";
 import { useAgentSettingsStore } from "@/store/agent-settings";
 import { trpc } from "@/trpc/react";
 import { TONES } from "@/lib/constant";
+import { Separator } from "../ui/separator";
 
 export const AgentConfigurationBar = () => {
     const { creativity, humanised, project, setCreativity, setHumanised, setProject, tone, setTone } = useAgentSettingsStore();

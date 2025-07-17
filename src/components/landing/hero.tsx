@@ -38,7 +38,7 @@ export const Hero = () => (
           <div className="row-span-2 flex items-center justify-center rounded-md overflow-hidden">
             <img
               src="https://res.cloudinary.com/dz8mikz3h/image/upload/v1752234659/Screenshot_11-7-2025_171833_pbs.twimg.com_slujkk.jpg"
-              alt="Floa Lite AI Agent Chat Screenshot"
+              alt="Floa AI Agent Chat Screenshot"
               className="object-contain w-full h-full rounded-md"
             />
           </div>

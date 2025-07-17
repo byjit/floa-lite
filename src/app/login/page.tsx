@@ -17,7 +17,6 @@ export default async function LoginPage() {
                 <CardHeader>
                     <div className="flex items-center gap-2">
                         <Logo />
-                        <p>Floa lite</p>
                     </div>
                 </CardHeader>
                 <CardContent>
