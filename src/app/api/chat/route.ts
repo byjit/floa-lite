@@ -16,11 +16,11 @@ type ChatRequest = {
 export async function POST(req: Request) {
   const { messages, modelId, creativity, humanised, project, tone }: ChatRequest = await req.json();
 
-  console.log(modelId, creativity, humanised, project, tone);
+  console.log(modelId, creativity, humanised, project, tone, messages);
 
   const result = streamText({
     model: getModelClient(modelId) as LanguageModel,
-    messages: convertToModelMessages(messages),
+    messages: messages?.length ? convertToModelMessages(messages) : [],
     tools: {
       weather: tool({
         description: 'Get the weather in a location (fahrenheit)',

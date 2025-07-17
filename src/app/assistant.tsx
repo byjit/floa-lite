@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { UIMessage, useChat } from '@ai-sdk/react';
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { z } from 'zod';
 import {
   Accordion,
@@ -38,25 +38,29 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { aiModelId, creativity, humanised, project, tone } = useAgentSettingsStore();
 
+  const prepareSendMessagesRequest = useCallback(({ id, body, messages = [] }: { id: string; body: any, messages: UIMessage[] }) => {
+    return {
+      body: {
+        ...body,
+        modelId: aiModelId,
+        creativity,
+        humanised,
+        project,
+        tone,
+        messages: messages,
+        id,
+      },
+    };
+  }, [aiModelId, creativity, humanised, project, tone]);
+
   const { messages, sendMessage, setMessages, status, error, id, regenerate, resumeStream, stop, addToolResult } = useChat({
     maxSteps: 5,
     experimental_throttle: 2000,
-    messages: initialMessages,
     transport: new DefaultChatTransport({
-      prepareSendMessagesRequest: ({ id, body }) => {
-        return {
-          body: {
-            ...body,
-            modelId: aiModelId,
-            creativity,
-            humanised,
-            project,
-            tone,
-          },
-        };
-      },
+      prepareSendMessagesRequest,
     }),
   });
+
 
   const examplePrompts = [
     { icon: Mail, text: "Write me an email", value: "Write me an email: \n\n" },
@@ -82,9 +86,6 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
 
   return (
     <div className="flex flex-col h-screen">
-      <div>
-        {JSON.stringify({ creativity, humanised, project, tone, aiModelId }, null, 2)}
-      </div>
       {/* Input Area */}
       <form onSubmit={handleSubmit} className="relative mt-20 border rounded-lg p-4">
         <Textarea
@@ -104,7 +105,7 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
               }
             }
           }}
-          className="flex-1 bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 min-h-[60px] h-auto max-h-[400px] resize-none transition-all overflow-y-auto"
+          className="flex-1 bg-transparent mb-1 border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 min-h-[60px] h-auto max-h-[400px] resize-none transition-all overflow-y-auto"
           rows={1}
           onPaste={e => {
             // After paste, let the value update, then resize
@@ -150,9 +151,6 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
         {messages.length > 0 ? (
           <ChatView
             messages={messages}
-            showExamples={showExamples}
-            setShowExamples={setShowExamples}
-            handleExampleClick={handleExampleClick}
           />
         ) : (
           <div className="mt-12 flex justify-center">

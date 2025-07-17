@@ -3,12 +3,10 @@ import { Card } from "@/components/ui/card";
 import { ChevronUp } from "lucide-react";
 import { UIMessage } from "@ai-sdk/react";
 
-export const ChatView = ({ messages, showExamples, setShowExamples, handleExampleClick }: { messages: UIMessage[], showExamples: boolean, setShowExamples: (show: boolean) => void, handleExampleClick: (text: string) => void }) => {
+export const ChatView = ({ messages }: { messages: UIMessage[] }) => {
   return (
 <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.length === 0 && (
-          // Chat messages
-          messages.map(message => (
+          {messages.map(message => (
             <div key={message.id} className="space-y-2">
               <div className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-3xl rounded-lg p-4 ${message.role === 'user'
@@ -33,7 +31,7 @@ export const ChatView = ({ messages, showExamples, setShowExamples, handleExampl
               </div>
             </div>
           ))
-        )}
+          }
       </div>
     )
   }
