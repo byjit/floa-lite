@@ -85,12 +85,12 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
   };
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-full py-14 overflow-hidden">
       <ChatView
         messages={messages}
       />
       {/* Input Area */}
-      <form onSubmit={handleSubmit} className="border rounded-lg p-4">
+      <form onSubmit={handleSubmit} className="border bg-input rounded-lg mt-12 p-4">
         <Textarea
           ref={textareaRef}
           value={input}
@@ -108,7 +108,7 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
               }
             }
           }}
-          className="flex-1 bg-transparent mb-1 border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 min-h-[60px] h-auto max-h-[400px] resize-none transition-all overflow-y-auto"
+          className="flex-1 bg-input mb-1 border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 min-h-[60px] h-auto max-h-[400px] resize-none transition-all overflow-y-auto"
           rows={1}
           onPaste={e => {
             // After paste, let the value update, then resize

@@ -24,27 +24,27 @@ interface MarkdownTextProps {
 const MarkdownTextImpl: FC<MarkdownTextProps> = ({ children, className }) => {
   const components: Components = {
     h1: ({ children, ...props }) => (
-      <h1 className="mb-8 scroll-m-20 text-4xl font-extrabold tracking-tight last:mb-0" {...props}>
+      <h1 className="mb-8 scroll-m-20 text-2xl font-extrabold tracking-tight last:mb-0" {...props}>
         {children}
       </h1>
     ),
     h2: ({ children, ...props }) => (
-      <h2 className="mb-4 mt-8 scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0 last:mb-0" {...props}>
+      <h2 className="mb-4 mt-8 scroll-m-20 text-md font-semibold tracking-tight first:mt-0 last:mb-0" {...props}>
         {children}
       </h2>
     ),
     h3: ({ children, ...props }) => (
-      <h3 className="mb-4 mt-6 scroll-m-20 text-2xl font-semibold tracking-tight first:mt-0 last:mb-0" {...props}>
+      <h3 className="mb-4 mt-6 scroll-m-20 text-md font-semibold tracking-tight first:mt-0 last:mb-0" {...props}>
         {children}
       </h3>
     ),
     h4: ({ children, ...props }) => (
-      <h4 className="mb-4 mt-6 scroll-m-20 text-xl font-semibold tracking-tight first:mt-0 last:mb-0" {...props}>
+      <h4 className="mb-4 mt-6 scroll-m-20 text-md font-semibold tracking-tight first:mt-0 last:mb-0" {...props}>
         {children}
       </h4>
     ),
     h5: ({ children, ...props }) => (
-      <h5 className="my-4 text-lg font-semibold first:mt-0 last:mb-0" {...props}>
+      <h5 className="my-4 text-md font-semibold first:mt-0 last:mb-0" {...props}>
         {children}
       </h5>
     ),
@@ -54,7 +54,7 @@ const MarkdownTextImpl: FC<MarkdownTextProps> = ({ children, className }) => {
       </h6>
     ),
     p: ({ children, ...props }) => (
-      <p className="mb-5 mt-5 leading-7 first:mt-0 last:mb-0" {...props}>
+      <p className="mb-4 mt-4 leading-7 first:mt-0 last:mb-0" {...props}>
         {children}
       </p>
     ),
@@ -69,12 +69,12 @@ const MarkdownTextImpl: FC<MarkdownTextProps> = ({ children, className }) => {
       </blockquote>
     ),
     ul: ({ children, ...props }) => (
-      <ul className="my-5 ml-6 list-disc [&>li]:mt-2" {...props}>
+      <ul className="my-4 ml-6 list-disc [&>li]:mt-2" {...props}>
         {children}
       </ul>
     ),
     ol: ({ children, ...props }) => (
-      <ol className="my-5 ml-6 list-decimal [&>li]:mt-2" {...props}>
+      <ol className="my-4 ml-6 list-decimal [&>li]:mt-2" {...props}>
         {children}
       </ol>
     ),
@@ -115,7 +115,7 @@ const MarkdownTextImpl: FC<MarkdownTextProps> = ({ children, className }) => {
 
       if (!inline && match) {
         return (
-          <div className="relative">
+          <div className="relative text-sm">
             <CodeHeader language={language} code={codeString} />
             <SyntaxHighlighter
               style={oneDark as any}
@@ -138,7 +138,7 @@ const MarkdownTextImpl: FC<MarkdownTextProps> = ({ children, className }) => {
   };
 
   return (
-    <div className={cn("prose-sm max-w-none prose-invert", className)}>
+    <div className={cn(" max-w-none prose-invert", className)}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={components}
@@ -159,7 +159,7 @@ const CodeHeader: FC<CodeHeaderProps> = ({ language, code }) => {
   };
 
   return (
-    <div className="flex items-center justify-between gap-4 mt-4 rounded-t-lg px-4 py-2 text-sm font-semibold text-foreground">
+    <div className="flex items-center justify-between">
       <span className="lowercase [&>span]:text-xs">{language}</span>
       <TooltipIconButton tooltip="Copy" onClick={onCopy}>
         {!isCopied && <CopyIcon />}

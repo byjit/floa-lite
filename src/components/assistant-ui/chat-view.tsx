@@ -7,17 +7,18 @@ import { cn } from "@/lib/utils";
 
 export const ChatView = ({ messages }: { messages: UIMessage[] }) => {
   return (
-    <div className="flex-1 overflow-y-auto p-4 space-y-4">
+    <div className="mt-8 space-y-10">
           {messages.map(message => (
-            <div key={message.id} className="space-y-2">
-              <div className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-3xl rounded-lg`}>
+            <div key={message.id} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`rounded-full`}>
                   {message.parts.map((part, i) => {
                     switch (part.type) {
                       case 'text':
                         return (
                           <div key={`${message.id}-${i}`}>
-                            <MarkdownText className={cn("text-card-foreground px-4 py-1 rounded-xl", message.role === 'user' && 'bg-neutral-800')}>{part.text}</MarkdownText>
+                            <MarkdownText className={cn("text-card-foreground px-4 py-1 rounded-full", message.role === 'user' && 'bg-secondary')}>
+                              {part.text}
+                            </MarkdownText>
                           </div>
                         );
                       case 'tool-weather':
@@ -30,12 +31,11 @@ export const ChatView = ({ messages }: { messages: UIMessage[] }) => {
                         return null;
                     }
                   })}
-                </div>
               </div>
             </div>
           ))
           }
-      </div>
+    </div>
     )
   }
 

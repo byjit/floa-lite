@@ -16,8 +16,9 @@ export function Navbar({session}: {session: Session}) {
       <Link href="/">
         <Logo />
       </Link>
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-6">
         <Link href="/agents" className={cn("text-sm text-slate-300", pathname === "/agents" && "text-white")}>Agents</Link>
+        <Link href="/bookmarks" className={cn("text-sm text-slate-300", pathname === "/bookmarks" && "text-white")}>Bookmarks</Link>
         <Link href="/dashboard/projects" className={cn("text-sm text-slate-300", pathname.includes("/dashboard") && "text-white")}>Dashboard</Link>
       </div>
 

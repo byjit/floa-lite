@@ -12,9 +12,10 @@ import { useMemo } from "react";
 import { Switch } from "../ui/switch";
 import { useAgentSettingsStore } from "@/store/agent-settings";
 import { trpc } from "@/trpc/react";
+import { TONES } from "@/lib/constant";
 
 export const AgentConfigurationBar = () => {
-    const { creativity, humanised, project, setCreativity, setHumanised, setProject } = useAgentSettingsStore();
+    const { creativity, humanised, project, setCreativity, setHumanised, setProject, tone, setTone } = useAgentSettingsStore();
 
     const { data: projects, isLoading, isError } = trpc.project.getProjects.useQuery();
 
@@ -33,7 +34,7 @@ export const AgentConfigurationBar = () => {
 
 
     return (
-        <div className="flex items-center justify-between w-full px-4 max-w-[42rem] mx-auto mt-2">
+        <div className="flex items-center justify-between w-full px-4 mx-auto mt-2">
             {/* Left side: Folder icon and SearchableSelect */}
             <div className="flex items-center px-3 gap-2">
                 <FolderClosedIcon className="h-4 w-4 text-neutral-500" />
@@ -67,6 +68,21 @@ export const AgentConfigurationBar = () => {
                                 {creativityOptions.map((option) => (
                                     <SelectItem key={option.value} value={option.value}>
                                         {option.label}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <Label htmlFor="creativity" className="text-xs font-medium">Tone</Label>
+                        <Select value={tone} onValueChange={setTone}>
+                            <SelectTrigger id="tone" className="h-9 text-xs max-w-[100px] ml-auto">
+                                <SelectValue placeholder="Select a tone" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {TONES.map((option) => (
+                                    <SelectItem key={option} value={option}>
+                                        {option.charAt(0).toUpperCase() + option.slice(1)}
                                     </SelectItem>
                                 ))}
                             </SelectContent>
