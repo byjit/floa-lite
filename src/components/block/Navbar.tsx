@@ -9,6 +9,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuSep
 import { getInitials } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { PanelRight } from "lucide-react";
+import { SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 
 export function Navbar({session}: {session: Session}) {
   const pathname = usePathname();
@@ -23,7 +25,13 @@ export function Navbar({session}: {session: Session}) {
         <Link href="/dashboard/projects" className={cn("text-sm text-slate-300", pathname.includes("/dashboard") && "text-white")}>Dashboard</Link>
       </div>
 
-      <div className="relative">
+      <div className="relative flex items-center gap-4">
+        <SheetTrigger asChild>
+          <Button variant="ghost" size="default" className="flex items-center gap-2 rounded">
+            <span className="hidden md:block">chats</span>
+            <PanelRight className="w-6 h-6" />
+          </Button>
+        </SheetTrigger>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar className="cursor-pointer transition-shadow hover:shadow-lg w-8 h-8">
