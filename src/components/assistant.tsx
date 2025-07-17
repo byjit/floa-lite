@@ -24,7 +24,8 @@ import {
   Calendar,
   Search,
   ChevronUp,
-  Filter
+  Filter,
+  Square
 } from 'lucide-react';
 import { AiModelSelector } from '@/components/assistant-ui/model-selector';
 import { AgentConfigurationBar } from '@/components/assistant-ui/agent-configuration-bar';
@@ -64,8 +65,8 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
 
   const examplePrompts = [
     { icon: Mail, text: "Write me an email", value: "Write me an email: \n\n" },
+    { icon: Search, text: "Deep research a topic", value: "Deep research the topic: \n\n" },
     { icon: Calendar, text: "Check my calendar", value: "Check my calendar: \n\n" },
-    { icon: Search, text: "Deep research a topic", value: "Deep research the topic: \n\n" }
   ];
 
   const handleExampleClick = (text: string) => {
@@ -81,6 +82,9 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
     if (input.trim()) {
       sendMessage({ text: input });
       setInput('');
+      if (textareaRef.current) {
+        textareaRef.current.style.height = '60px';
+      }
     }
   };
 
@@ -89,67 +93,80 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
       <ChatView
         messages={messages}
       />
-      <div>
-      <form onSubmit={handleSubmit} className="border bg-input rounded-lg mt-12 p-4">
-        <Textarea
-          ref={textareaRef}
-          value={input}
-          placeholder="Ask questions or get your work done..."
-          onChange={e => {
-            setInput(e.currentTarget.value);
-            // Auto-resize logic with null check
-            const textarea = e.currentTarget;
-            if (textarea) {
-              if (e.currentTarget.value.length > 0) {
-                e.currentTarget.style.height = '60px';
-                e.currentTarget.style.height = Math.min(e.currentTarget.scrollHeight, 170) + 'px';
-              } else {
-                e.currentTarget.style.height = '60px';
-              }
-            }
-          }}
-          className="flex-1 bg-input mb-1 border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 min-h-[60px] h-auto max-h-[400px] resize-none transition-all overflow-y-auto"
-          rows={1}
-          onPaste={e => {
-            // After paste, let the value update, then resize
-            setTimeout(() => {
-              const textarea = e.currentTarget as HTMLTextAreaElement;
+      <div id='chat-input'>
+        <form onSubmit={handleSubmit} className="border bg-input rounded-lg mt-12 p-4">
+          <Textarea
+            ref={textareaRef}
+            value={input}
+            placeholder="Ask questions or get your work done..."
+            onChange={e => {
+              setInput(e.currentTarget.value);
+              // Auto-resize logic with null check
+              const textarea = e.currentTarget;
               if (textarea) {
-                textarea.style.height = '60px';
-                textarea.style.height = Math.min(textarea.scrollHeight, 400) + 'px';
+                if (e.currentTarget.value.length > 0) {
+                  e.currentTarget.style.height = '60px';
+                  e.currentTarget.style.height = Math.min(e.currentTarget.scrollHeight, 170) + 'px';
+                } else {
+                  e.currentTarget.style.height = '60px';
+                }
               }
-            }, 0);
-          }}
-          onKeyDown={e => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-              e.preventDefault();
-              handleSubmit(e);
-            }
-          }}
-        />
-        <div className="flex items-center justify-between">
-          <AiModelSelector />
-          <div className="flex items-center space-x-2 pr-3">
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              className="text-gray-400 hover:text-white"
-            >
-              <Paperclip className="w-4 h-4" />
-            </Button>
-            <Button
-              type="submit"
-              size="icon"
-              className="bg-blue-600 hover:bg-blue-700 text-white rounded-full"
-              disabled={!input.trim()}
-            >
-              <ArrowUp className="w-4 h-4" />
-            </Button>
+            }}
+            className="flex-1 bg-input mb-1 border-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 min-h-[60px] h-auto max-h-[400px] resize-none transition-all overflow-y-auto"
+            rows={1}
+            onPaste={e => {
+              // After paste, let the value update, then resize
+              setTimeout(() => {
+                const textarea = e.currentTarget as HTMLTextAreaElement;
+                if (textarea) {
+                  textarea.style.height = '60px';
+                  textarea.style.height = Math.min(textarea.scrollHeight, 400) + 'px';
+                }
+              }, 0);
+            }}
+            onKeyDown={e => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSubmit(e);
+              }
+            }}
+          />
+          <div className="flex items-center justify-between">
+            <AiModelSelector />
+            <div className="flex items-center space-x-2 pr-3">
+              {/* <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="text-gray-400 hover:text-white"
+              >
+                <Paperclip className="w-4 h-4" />
+              </Button> */}
+              {
+                status === 'streaming' || status === 'submitted' ? (
+                  <Button
+                    type="submit"
+                    onClick={() => stop()}
+                    size="icon"
+                    className="bg-destructive hover:bg-destructive/90 text-white rounded-full"
+                  >
+                    <Square className="w-4 h-4" />
+                  </Button>
+                ) : (
+                    <Button
+                type="submit"
+                size="icon"
+                className="bg-blue-600 hover:bg-blue-700 text-white rounded-full"
+                disabled={!input.trim()}
+              >
+                <ArrowUp className="w-4 h-4" />
+              </Button>
+                )
+              }
+            </div>
           </div>
-        </div>
-      </form>
-      <AgentConfigurationBar />
+        </form>
+        <AgentConfigurationBar />
       </div>
       <div className="flex flex-col gap-2 flex-1">
         {messages.length === 0 && (

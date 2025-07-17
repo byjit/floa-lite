@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 import { getInitials } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { PanelRight } from "lucide-react";
 
 export function Navbar({session}: {session: Session}) {
   const pathname = usePathname();

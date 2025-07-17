@@ -54,27 +54,27 @@ const MarkdownTextImpl: FC<MarkdownTextProps> = ({ children, className }) => {
       </h6>
     ),
     p: ({ children, ...props }) => (
-      <p className="mb-4 mt-4 leading-7 first:mt-0 last:mb-0" {...props}>
+      <p className="mb-4 mt-4 leading-7 first:mt-0 last:mb-0 break-words" {...props}>
         {children}
       </p>
     ),
     a: ({ children, ...props }) => (
-      <a className="text-primary font-medium underline underline-offset-4" {...props}>
+      <a className="text-primary font-medium underline underline-offset-4 break-all" {...props}>
         {children}
       </a>
     ),
     blockquote: ({ children, ...props }) => (
-      <blockquote className="border-l-2 pl-6 italic" {...props}>
+      <blockquote className="border-l-2 pl-6 italic break-words" {...props}>
         {children}
       </blockquote>
     ),
     ul: ({ children, ...props }) => (
-      <ul className="my-4 ml-6 list-disc [&>li]:mt-2" {...props}>
+      <ul className="my-4 ml-6 list-disc [&>li]:mt-2 break-words" {...props}>
         {children}
       </ul>
     ),
     ol: ({ children, ...props }) => (
-      <ol className="my-4 ml-6 list-decimal [&>li]:mt-2" {...props}>
+      <ol className="my-4 ml-6 list-decimal [&>li]:mt-2 break-words" {...props}>
         {children}
       </ol>
     ),
@@ -82,17 +82,19 @@ const MarkdownTextImpl: FC<MarkdownTextProps> = ({ children, className }) => {
       <hr className="my-5 border-b" {...props} />
     ),
     table: ({ children, ...props }) => (
-      <table className="my-5 w-full border-separate border-spacing-0 overflow-y-auto" {...props}>
-        {children}
-      </table>
+      <div className="overflow-x-auto">
+        <table className="my-5 w-full border-separate border-spacing-0" {...props}>
+          {children}
+        </table>
+      </div>
     ),
     th: ({ children, ...props }) => (
-      <th className="bg-muted px-4 py-2 text-left font-bold first:rounded-tl-lg last:rounded-tr-lg [&[align=center]]:text-center [&[align=right]]:text-right" {...props}>
+      <th className="bg-muted px-4 py-2 text-left font-bold first:rounded-tl-lg last:rounded-tr-lg [&[align=center]]:text-center [&[align=right]]:text-right break-words" {...props}>
         {children}
       </th>
     ),
     td: ({ children, ...props }) => (
-      <td className="border-b border-l px-4 py-2 text-left last:border-r [&[align=center]]:text-center [&[align=right]]:text-right" {...props}>
+      <td className="border-b border-l px-4 py-2 text-left last:border-r [&[align=center]]:text-center [&[align=right]]:text-right break-words" {...props}>
         {children}
       </td>
     ),
@@ -115,13 +117,15 @@ const MarkdownTextImpl: FC<MarkdownTextProps> = ({ children, className }) => {
 
       if (!inline && match) {
         return (
-          <div className="relative text-sm">
+          <div className="relative text-sm overflow-x-auto">
             <CodeHeader language={language} code={codeString} />
             <SyntaxHighlighter
               style={oneDark as any}
               language={language}
               PreTag="div"
-              className="!mt-0 !rounded-t-none !rounded-b-lg"
+              className="!mt-0 !rounded-t-none !rounded-b-lg !whitespace-pre-wrap !break-words"
+              wrapLongLines={true}
+              wrapLines={true}
             >
               {codeString}
             </SyntaxHighlighter>
@@ -130,7 +134,7 @@ const MarkdownTextImpl: FC<MarkdownTextProps> = ({ children, className }) => {
       }
 
       return (
-        <code className="bg-muted rounded border font-semibold px-1 py-0.5" {...rest}>
+        <code className="bg-muted rounded border font-semibold px-1 py-0.5 break-words" {...rest}>
           {children}
         </code>
       );
@@ -138,7 +142,7 @@ const MarkdownTextImpl: FC<MarkdownTextProps> = ({ children, className }) => {
   };
 
   return (
-    <div className={cn(" max-w-none prose-invert", className)}>
+    <div className={cn("text-wrap prose-invert break-words", className)}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={components}
