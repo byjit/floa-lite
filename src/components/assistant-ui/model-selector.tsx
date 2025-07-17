@@ -1,33 +1,37 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CloudIcon } from "lucide-react";
-import { SearchableSelect, Option } from "@/components/searchable-select";
+import { SearchableSelect, type Option } from "@/components/searchable-select";
+import { useAgentSettingsStore } from "@/store/agent-settings";
+import { AI_MODELS } from "@/lib/models";
 
 export const AiModelSelector = () => {
-  const [selectedModel, setSelectedModel] = useState<string>("openai-gpt4"); // Default selected model
+  const { aiModelId, setAiModelId } = useAgentSettingsStore();
 
-  // Dummy data for AI models
-  const aiModels: Option[] = [
-    { value: "grok-4", label: "Grok 4" },
-    { value: "claude-4-sonnet", label: "Claude 4 Sonnet" },
-    { value: "sonar-pro", label: "Sonar Pro" },
-    { value: "gemini-2.5-pro", label: "Gemini 2.5 Pro" },
-  ];
+  const aiModels: Option[] = AI_MODELS.filter((model) => !model.hide).map(
+    (model) => ({
+      value: model.id,
+      label: model.name,
+    }),
+  );
 
   const handleModelChange = (value: string) => {
-    setSelectedModel(value);
+    setAiModelId(value);
     // Log the selected model for debugging or analytics
     console.log("Selected AI Model:", value);
   };
 
   return (
     <div className="flex items-center gap-2">
-      <Button variant="secondary" size="icon" className="text-neutral-600 rounded-full">
+      <Button
+        variant="secondary"
+        size="icon"
+        className="text-neutral-600 rounded-full"
+      >
         <CloudIcon className="w-4 h-4" />
       </Button>
       <SearchableSelect
         options={aiModels}
-        value={selectedModel}
+        value={aiModelId}
         onValueChange={handleModelChange}
         placeholder="Select AI Model"
         emptyMessage="No models found."
