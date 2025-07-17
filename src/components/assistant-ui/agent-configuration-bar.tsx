@@ -50,6 +50,8 @@ export const AgentConfigurationBar = () => {
             </div>
 
             {/* Right side: SlidersVertical icon button with Popover */}
+            <div className="flex items-center gap-1">
+                <p className="text-xs text-gray-500">{`creativity: ${creativity} | tone: ${tone} | humanised: ${humanised}`}</p>
             <Popover>
                 <PopoverTrigger asChild>
                     <Button variant="ghost" size="icon" className="text-neutral-500 hover:text-foreground">
@@ -95,6 +97,7 @@ export const AgentConfigurationBar = () => {
                     </div>
                 </PopoverContent>
             </Popover>
+            </div>
         </div>
     )
 }

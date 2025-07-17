@@ -25,7 +25,7 @@ export const AiModelSelector = () => {
       <Button
         variant="secondary"
         size="icon"
-        className="text-neutral-600 rounded-full"
+        className="text-neutral-500 rounded-full"
       >
         <CloudIcon className="w-4 h-4" />
       </Button>

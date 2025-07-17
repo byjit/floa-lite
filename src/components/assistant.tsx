@@ -89,7 +89,7 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
       <ChatView
         messages={messages}
       />
-      {/* Input Area */}
+      <div>
       <form onSubmit={handleSubmit} className="border bg-input rounded-lg mt-12 p-4">
         <Textarea
           ref={textareaRef}
@@ -150,6 +150,7 @@ export default function Chat({ messages: initialMessages }: { messages: UIMessag
         </div>
       </form>
       <AgentConfigurationBar />
+      </div>
       <div className="flex flex-col gap-2 flex-1">
         {messages.length === 0 && (
           <div className="mt-12 flex justify-center">

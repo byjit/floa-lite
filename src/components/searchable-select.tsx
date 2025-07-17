@@ -59,7 +59,7 @@ export function SearchableSelect({
           variant="ghost"
           role="combobox"
           aria-expanded={open}
-          className={cn("flex max-w-[100px] justify-between px-0 hover:bg-transparent text-neutral-400 hover:text-foreground", className)}
+          className={cn("flex max-w-[100px] justify-between px-0 hover:bg-transparent text-neutral-300 hover:text-foreground", className)}
           disabled={disabled}
         >
           <p className="text-xs">{selectedOption ? selectedOption.label : placeholder}</p>
