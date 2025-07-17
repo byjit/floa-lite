@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
-interface AgentSettingsState {
+export interface AgentSettingsState {
   creativity: string;
   humanised: boolean;
   project: string;
@@ -15,7 +15,7 @@ export const useAgentSettingsStore = create<AgentSettingsState>()(
     (set) => ({
       creativity: 'balanced',
       humanised: false,
-          project: '',
+      project: '',
       setCreativity: (creativity) => set({ creativity }),
       setHumanised: (humanised) => set({ humanised }),
       setProject: (project) => set({ project }),

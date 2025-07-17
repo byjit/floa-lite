@@ -5,6 +5,7 @@ import { createId } from "@paralleldrive/cuid2";
 import { user } from "./user";
 import { relations } from "drizzle-orm";
 import { projectsToTools } from "./projects_to_tools";
+import { float32Array } from "../custom";
 
 export const toolType = ['integration', 'mcp'] as const;
 export const toolTypeSchema = z.enum(toolType);
@@ -32,10 +33,12 @@ export const tool = sqliteTable("tool", {
     id: text("id").primaryKey().$defaultFn(() => createId()),
     name: text('name').notNull(), // Name of the tool, e.g., "Weather API", "GitHub Tool"
     type: text('type', { enum: toolType }).notNull(), // Type of the tool, e.g., 'api', 'mcp'
-    description: text('description'), // A brief description of what the tool does
+  description: text('description'),
+  description_vector: float32Array('description_vector', { dimensions: 1536 }).$type<number[]>(),
   configuration: text('configuration', { mode: 'json' }).$type<McpServerConfig>(), // JSON object for tool-specific configuration (e.g., API keys, endpoints)
     userId: text('user_id').references(() => user.id, { onDelete: 'cascade' }), // Optional: if tool is user-specific
     metadata: text('metadata'),
+  is_active: integer('is_active', { mode: 'boolean' }).notNull().default(true),
   createdAt: integer('created_at', { mode: 'timestamp' }),
   updatedAt: integer('updated_at', { mode: 'timestamp' })
 }, (table) => [

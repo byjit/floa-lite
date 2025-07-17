@@ -8,14 +8,12 @@ import { Button } from "@/components/ui/button";
 import { SearchableSelect, Option } from "@/components/searchable-select";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { useEffect, useMemo } from "react";
-import { useComposerRuntime } from "@assistant-ui/react";
+import { useMemo } from "react";
 import { Switch } from "../ui/switch";
 import { useAgentSettingsStore } from "@/store/agent-settings";
 import { trpc } from "@/trpc/react";
 
 export const AgentConfigurationBar = () => {
-    const composerRuntime = useComposerRuntime();
     const { creativity, humanised, project, setCreativity, setHumanised, setProject } = useAgentSettingsStore();
 
     const { data: projects, isLoading, isError } = trpc.project.getProjects.useQuery();
@@ -32,16 +30,7 @@ export const AgentConfigurationBar = () => {
         { value: "high", label: "High" },
     ]
 
-    useEffect(() => {
-        if (!composerRuntime) return;
-        composerRuntime.setRunConfig({
-            custom: {
-                creativity,
-                humanised,
-                project,
-            }
-        })
-    }, [composerRuntime, creativity, humanised, project]);
+
 
     return (
         <div className="flex items-center justify-between w-full px-4 max-w-[42rem] mx-auto mt-2">

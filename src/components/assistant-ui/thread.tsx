@@ -31,7 +31,7 @@ import {
   ComposerAttachments,
   ComposerAddAttachment,
   UserMessageAttachments,
-} from "@/components/assistant-ui/attachment";
+} from "@/components/assistant-ui/attachments/attachment";
 import { AiModelSelector } from "./model-selector";
 import { AgentConfigurationBar } from "./agent-configuration-bar";
 import {

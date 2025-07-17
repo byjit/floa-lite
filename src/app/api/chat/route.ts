@@ -1,24 +1,31 @@
-import { LangChainAdapter } from "ai";
-import { Messages } from "@langchain/langgraph";
-import { AIMessageChunk, isAIMessageChunk } from "@langchain/core/messages";
-import { toReadableStream } from "@/lib/utils";
-import { masterWorkflow } from "@/lib/workflows/master-workflow";
-import { validateSession } from "auth";
-export const runtime = "edge";
-export const maxDuration = 60;
+import { openai } from '@ai-sdk/openai';
+import { streamText, UIMessage, convertToModelMessages, tool } from 'ai';
+import { z } from 'zod';
+
+export const maxDuration = 30;
 
 export async function POST(req: Request) {
-  const session = await validateSession();
-  const body = await req.json();
-  const { messages, runConfig } = body;
-  console.log({ runConfig });
+  const { messages }: { messages: UIMessage[] } = await req.json();
 
-  const streamIterable = await masterWorkflow.stream({ messages }, { streamMode: "messages" });
-
-  const stream = toReadableStream(streamIterable, {
-    filter: ([msg]) => isAIMessageChunk(msg as AIMessageChunk),
-    mapper: ([msg]) => msg,
+  const result = streamText({
+    model: openai('gpt-4o'),
+    messages: convertToModelMessages(messages),
+    tools: {
+      weather: tool({
+        description: 'Get the weather in a location (fahrenheit)',
+        inputSchema: z.object({
+          location: z.string().describe('The location to get the weather for'),
+        }),
+        execute: async ({ location }) => {
+          const temperature = Math.round(Math.random() * (90 - 32) + 32);
+          return {
+            location,
+            temperature,
+          };
+        },
+      }),
+    },
   });
 
-  return LangChainAdapter.toDataStreamResponse(stream);
+  return result.toUIMessageStreamResponse();
 }

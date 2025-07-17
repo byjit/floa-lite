@@ -19,6 +19,7 @@ NOTE: all the information below are just for context on the product.
 - Database: Turso Libsql sqlite with Drizzle ORM
 - Uploadthing for file upload
 - Authentication - Google oauth implemented with better-auth
+- Vercel AI sdk for ai features
 - shadcn UI, tailwindcss, for UI
 - tRPC for API
 
@@ -26,3 +27,6 @@ NOTE: all the information below are just for context on the product.
 - Meant for all screens, small and big
 - Meant for individuals - professionals, devs, students alike
 - Meant to replace people's perplexity, chatgpt, claude subscription.
+
+
+NOTE: When working on the AI sdk use context7 mcp with the doc for v5 beta : https://context7.com/context7/v5_ai-sdk_dev
