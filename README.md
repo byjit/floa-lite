@@ -1,4 +1,14 @@
-# Floa lite 🤖
+# Floa
+
+## 🎬 Demo Video
+
+Experience Floa lite in action!  
+
+<video controls width="100%" style="border-radius: 12px; margin-top: 1em;">
+   <source src="https://res.cloudinary.com/dz8mikz3h/video/upload/v1752863316/floa-8update_ajoepk.mp4" type="video/mp4">
+   Your browser does not support the video tag.
+</video>
+
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
